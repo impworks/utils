@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFrameworks>netstandard2.0;net451</TargetFrameworks>
+        <RootNamespace>Impworks.Utils</RootNamespace>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Authors>Impworks</Authors>
+        <Company />
+        <Product>Impworks.Utils</Product>
+        <PackageProjectUrl>https://github.com/impworks/utils</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/impworks/utils</RepositoryUrl>
+        <PackageTags>helpers, utils</PackageTags>
+        <Description>A personal collection of helper utility methods.</Description>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+        <DefineConstants>NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Folder Include="Xml\" />
+    </ItemGroup>
+
+</Project>

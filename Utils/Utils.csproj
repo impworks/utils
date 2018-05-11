@@ -11,6 +11,7 @@
         <RepositoryUrl>https://github.com/impworks/utils</RepositoryUrl>
         <PackageTags>helpers, utils</PackageTags>
         <Description>A personal collection of helper utility methods.</Description>
+        <PackageId>Impworks.Utils</PackageId>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -24,9 +25,5 @@
     <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
         <DefineConstants>NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
     </PropertyGroup>
-
-    <ItemGroup>
-      <Folder Include="Xml\" />
-    </ItemGroup>
 
 </Project>

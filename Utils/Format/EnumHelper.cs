@@ -62,5 +62,4 @@ namespace Impworks.Utils.Format
                        .ToList();
         }
     }
-
 }

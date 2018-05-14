@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace Impworks.Utils.Strings
 {
-    public static partial class StringHelper
+    public static partial class StringExtensions
     {
         /// <summary>
         /// Parses the value to a type using default parsers.
@@ -23,7 +24,7 @@ namespace Impworks.Utils.Strings
         /// Returns the default value if an exception has been raised.
         /// </summary>
         /// <param name="str">Source string.</param>
-        /// <param name="parseFunc">Parser function that creates a value from the string.</param>
+        /// <param name="parseFunc">Parser function that creates a value from the string. Default parser is used for built-in types.</param>
         public static T TryParse<T>(this string str, Func<string, T> parseFunc = null)
         {
             var func = parseFunc ?? GetParseFunction<T>();
@@ -39,6 +40,37 @@ namespace Impworks.Utils.Strings
             }
 
             return default;
+        }
+
+        /// <summary>
+        /// Converts a string with delimiter-separated value representations to a list of values.
+        /// </summary>
+        /// <param name="str">Splittable string.</param>
+        /// <param name="separator">Sequence of characters that delimits values in the string. Defaults to a comma.</param>
+        /// <param name="parseFunc">Parser function that creates a value from the string part. Default parser is used for built-in types.</param>
+        public static IReadOnlyList<T> TryParseList<T>(this string str, string separator = ",", Func<string, T> parseFunc = null)
+        {
+            var result = new List<T>();
+
+            if (str != null)
+            {
+                var parts = str.Split(new[] {separator}, StringSplitOptions.None);
+                var func = parseFunc ?? GetParseFunction<T>();
+
+                foreach (var part in parts)
+                {
+                    try
+                    {
+                        result.Add(func(part));
+                    }
+                    catch
+                    {
+                        // do nothing
+                    }
+                }
+            }
+
+            return result;
         }
 
         /// <summary>

@@ -4,87 +4,8 @@ using System.Linq;
 
 namespace Impworks.Utils.Linq
 {
-    /// <summary>
-    /// Helper methods for IEnumerable.
-    /// </summary>
-    public static class EnumerableExtensions
+    public static partial class EnumerableExtensions
     {
-        /// <summary>
-        /// Splits a flat sequence into a sequence of chunks of desired size.
-        /// </summary>
-        /// <example>
-        /// new [] { 1, 2, 3, 4, 5, 6 }.PartitionBySize(2) => [1, 2], [3, 4], [5, 6]
-        /// new [] { 1, 2, 3, 4, 5, 6 }.PartitionBySize(4) => [1, 2, 3, 4], [5, 6]
-        /// new [] { 1 }.PartitionBySize(3) => [1]
-        /// </example>
-        /// <param name="source">Original sequence of values.</param>
-        /// <param name="chunkSize">Maximum number of elements per chunk.</param>
-        public static IEnumerable<List<T>> PartitionBySize<T>(this IEnumerable<T> source, int chunkSize)
-        {
-            if(source == null)
-                throw new ArgumentNullException(nameof(source));
-
-            if(chunkSize < 1)
-                throw new ArgumentException("Size of the chunk must be at least 1!");
-
-            var batch = new List<T>(chunkSize);
-
-            foreach (var item in source)
-            {
-                batch.Add(item);
-
-                if (batch.Count == chunkSize)
-                {
-                    yield return batch;
-                    batch = new List<T>(chunkSize);
-                }
-            }
-
-            if (batch.Count > 0)
-                yield return batch;
-        }
-
-        /// <summary>
-        /// Splits the sequence into given number of roughly-equal sub-sequences
-        /// </summary>
-        /// <example>
-        /// new [] { 1, 2, 3, 4, 5, 6 }.PartitionByCount(2) => [1, 2, 3], [4, 5, 6]
-        /// new [] { 1, 2, 3, 4, 5, 6 }.PartitionByCount(3) => [1, 2], [3, 4], [5, 6]
-        /// new [] { 1, 2, 3, 4, 5 }.PartitionByCount(2) => [1, 2, 3], [4, 5]
-        /// new [] { 1 }.PartitionByCount(2) => [1]
-        /// </example>
-        /// <param name="source">Original sequence of values.</param>
-        /// <param name="partsCount">Desired number of partitions.</param>
-        public static List<List<T>> PartitionByCount<T>(this IEnumerable<T> source, int partsCount)
-        {
-            if(source == null)
-                throw new ArgumentNullException(nameof(source));
-
-            if(partsCount < 1)
-                throw new ArgumentException("Size of the chunk must be at least 1!");
-
-            var sourceList = source.ToList();
-            var sublistLength = (int) Math.Ceiling((double)sourceList.Count/partsCount);
-
-            var result = new List<List<T>>();
-            var partition = new List<T>(sublistLength);
-
-            foreach (var item in sourceList)
-            {
-                partition.Add(item);
-                if (partition.Count == sublistLength)
-                {
-                    result.Add(partition);
-                    partition = new List<T>(sublistLength);
-                }
-            }
-
-            if(partition.Count > 0)
-                result.Add(partition);
-
-            return result;
-        }
-
         /// <summary>
         /// Chainable method for joining a list of elements with a separator.
         /// </summary>
@@ -96,41 +17,33 @@ namespace Impworks.Utils.Linq
         }
 
         /// <summary>
-        /// Applies an action to all items in the tree.
+        /// Excludes duplicate values from the list (specified by an expression).
         /// </summary>
-        /// <param name="objects">Root list of items.</param>
-        /// <param name="childSelector">Function that selects children of a node.</param>
-        /// <param name="action">Action to perform on all children.</param>
-        public static void ApplyRecursively<T>(this IEnumerable<T> objects, Func<T, IEnumerable<T>> childSelector, Action<T> action)
+        /// <param name="sequence">Original sequence.</param>
+        /// <param name="idGetter">Element projection that returns must-be-unique values.</param>
+        public static IEnumerable<T> DistinctBy<T, TValue>(this IEnumerable<T> sequence, Func<T, TValue> idGetter)
         {
-            if (objects == null)
-                return;
-
-            foreach (var obj in objects)
-            {
-                action(obj);
-                childSelector(obj).ApplyRecursively(childSelector, action);
-            }
+            var hashSet = new HashSet<TValue>();
+            return sequence.Where(x => hashSet.Add(idGetter(x)));
         }
 
         /// <summary>
-        /// Selects all tree items into a single flat list.
+        /// Saves the sequence into a hashset.
         /// </summary>
-        /// <param name="objects">Root list of items.</param>
-        /// <param name="childSelector">Function that selects children of a single node.</param>
-        public static IEnumerable<T> SelectRecursively<T>(this IEnumerable<T> objects, Func<T, IEnumerable<T>> childSelector)
+        public static HashSet<T> ToHashSet<T>(this IEnumerable<T> sequence)
         {
-            if (objects == null)
-                yield break;
+            return new HashSet<T>(sequence);
+        }
 
-            foreach (var obj in objects)
-            {
-                yield return obj;
-
-                var children = childSelector(obj);
-                foreach (var child in children.SelectRecursively(childSelector))
-                    yield return child;
-            }
+        /// <summary>
+        /// Adds a list of items into the collection.
+        /// </summary>
+        /// <param name="collection">Target collection.</param>
+        /// <param name="data">Elements to add to the collection.</param>
+        public static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> data)
+        {
+            foreach (var item in data)
+                collection.Add(item);
         }
     }
 }

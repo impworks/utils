@@ -2,7 +2,7 @@
 
 namespace Impworks.Utils.Strings
 {
-    public static partial class StringHelper
+    public static partial class StringExtensions
     {
         /// <summary>
         /// Converts the first character of the string to uppercase.

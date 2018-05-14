@@ -1,30 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Impworks.Utils.Linq;
 
 namespace Impworks.Utils.Strings
 {
-    /// <summary>
-    /// The collection of various string-related methods.
-    /// </summary>
-    public static partial class StringHelper
+    public static partial class StringExtensions
     {
-        /// <summary>
-        /// Returns the first non-empty string from the specified list.
-        /// </summary>
-        public static string Coalesce(IEnumerable<string> args)
-        {
-            return args.FirstOrDefault(x => !string.IsNullOrEmpty(x));
-        }
-
-        /// <summary>
-        /// Returns the first non-empty string from the specified list.
-        /// </summary>
-        public static string Coalesce(params string[] args)
-        {
-            return Coalesce(args as IEnumerable<string>);
-        }
-
         /// <summary>
         /// Returns null if the string is null or empty.
         /// </summary>
@@ -38,6 +21,15 @@ namespace Impworks.Utils.Strings
                 : string.IsNullOrWhiteSpace;
 
             return check(str) ? null : str;
+        }
+
+        /// <summary>
+        /// Converts the list of arguments to a query.
+        /// </summary>
+        public static string ToQueryString(this IEnumerable<KeyValuePair<string, string>> args)
+        {
+            Func<string, string> escape = Uri.EscapeDataString;
+            return args.Select(x => $"{escape(x.Key)}={escape(x.Value)}").JoinString("&");
         }
     }
 }

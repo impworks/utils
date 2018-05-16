@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Impworks.Utils.Linq;
 
 namespace Impworks.Utils.Strings
 {
@@ -20,15 +17,6 @@ namespace Impworks.Utils.Strings
                 : string.IsNullOrWhiteSpace;
 
             return check(str) ? null : str;
-        }
-
-        /// <summary>
-        /// Converts the list of arguments to a query.
-        /// </summary>
-        public static string ToQueryString(this IEnumerable<KeyValuePair<string, string>> args)
-        {
-            Func<string, string> escape = Uri.EscapeDataString;
-            return args.Select(x => $"{escape(x.Key)}={escape(x.Value)}").JoinString("&");
         }
     }
 }

@@ -12,18 +12,23 @@
         <PackageTags>helpers, utils</PackageTags>
         <Description>A personal collection of helper utility methods.</Description>
         <PackageId>Impworks.Utils</PackageId>
+        <AssemblyName>Impworks.Utils</AssemblyName>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-        <LangVersion>latest</LangVersion>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <PropertyGroup>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
         <DefineConstants>NETCORE;NETSTANDARD;NETSTANDARD2_0</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Release|net451'">
+      <DocumentationFile>bin\Release\net451\Impworks.Utils.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)'=='Release|netstandard2.0'">
+      <DocumentationFile>bin\Release\netstandard2.0\Impworks.Utils.xml</DocumentationFile>
     </PropertyGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Impworks.Utils.Format;
@@ -49,9 +50,9 @@ namespace Impworks.Utils.Url
                 if (value == null)
                     continue;
 
-                if (prop.PropertyType.IsArray)
+                if (IsEnumerable(value))
                 {
-                    foreach(var elem in (dynamic) value)
+                    foreach(var elem in (IEnumerable) value)
                         yield return new KeyValuePair<string, object>(prop.Name, elem);
                 }
                 else
@@ -74,6 +75,18 @@ namespace Impworks.Utils.Url
                 : value.ToString();
 
             return Uri.EscapeDataString(propName) + "=" + Uri.EscapeDataString(strValue);
+        }
+
+        /// <summary>
+        /// Checks if the object must be rendered as a collection of values.
+        /// </summary>
+        private static bool IsEnumerable(object obj)
+        {
+            if (obj is string)
+                return false;
+
+            var interfaces = obj.GetType().GetInterfaces();
+            return interfaces.Contains(typeof(IEnumerable));
         }
 
         #endregion

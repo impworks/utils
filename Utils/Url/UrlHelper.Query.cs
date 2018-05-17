@@ -24,7 +24,7 @@ namespace Impworks.Utils.Url
         /// Renders the list of properties to a string.
         /// </summary>
         /// <param name="props">List of properties and their values.</param>
-        public static string GetQuery(IEnumerable<KeyValuePair<string, object>> props)
+        public static string GetQuery<T>(IDictionary<string, T> props)
         {
             return props.Select(x => RenderProperty(x.Key, x.Value))
                         .Where(x => x != null)
@@ -46,6 +46,9 @@ namespace Impworks.Utils.Url
 
             foreach (var prop in obj.GetType().GetProperties())
             {
+                if (prop.GetIndexParameters().Length > 0)
+                    continue;
+
                 var value = prop.GetValue(obj);
                 if (value == null)
                     continue;

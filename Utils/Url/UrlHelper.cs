@@ -14,7 +14,7 @@ namespace Impworks.Utils.Url
         public static Uri Combine(string authority, params string[] parts)
         {
             var safeParts = parts.Where(x => !string.IsNullOrWhiteSpace(x))
-                                 .Select(x => x.Trim('/'));
+                                 .Select(x => x.Trim('/', '\\'));
 
             return new Uri(new Uri(authority), string.Join("/", safeParts));
         }

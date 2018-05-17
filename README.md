@@ -74,7 +74,7 @@ The package provides the following methods, split into logical parts.
       
   * Random
   
-    Random values:    
+    Random values:
     ```csharp
     RandomHelper.Int(1, 100) // 42
     RandomHelper.Float() // 0.1337

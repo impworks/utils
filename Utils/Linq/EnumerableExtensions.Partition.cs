@@ -27,21 +27,26 @@ namespace Impworks.Utils.Linq
             if(chunkSize < 1)
                 throw new ArgumentException("Size of the chunk must be at least 1!");
 
-            var batch = new List<T>(chunkSize);
+            return Iterator();
 
-            foreach (var item in source)
+            IEnumerable<List<T>> Iterator()
             {
-                batch.Add(item);
+                var batch = new List<T>(chunkSize);
 
-                if (batch.Count == chunkSize)
+                foreach (var item in source)
                 {
-                    yield return batch;
-                    batch = new List<T>(chunkSize);
-                }
-            }
+                    batch.Add(item);
 
-            if (batch.Count > 0)
-                yield return batch;
+                    if (batch.Count == chunkSize)
+                    {
+                        yield return batch;
+                        batch = new List<T>(chunkSize);
+                    }
+                }
+
+                if (batch.Count > 0)
+                    yield return batch;
+            }
         }
 
         /// <summary>

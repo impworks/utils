@@ -49,6 +49,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Linq\EnumerableExtensions_Partition.cs" />
+    <Compile Include="Linq\EnumerableExtensions_Recursive.cs" />
+    <Compile Include="Linq\SampleTreeNode.cs" />
+    <Compile Include="Tools.cs" />
+    <Compile Include="Format\EnumHelper_All.cs" />
+    <Compile Include="Format\InvariantExtensions_Format.cs" />
+    <Compile Include="Format\SampleEnum.cs" />
+    <Compile Include="Linq\EnumerableExtensions_AddRange.cs" />
+    <Compile Include="Linq\EnumerableExtensions_DistinctBy.cs" />
+    <Compile Include="Linq\EnumerableExtensions_JoinString.cs" />
+    <Compile Include="Linq\EnumerableExtensions_OrderBy_IEnumerable.cs" />
+    <Compile Include="Linq\EnumerableExtensions_OrderBy_IQueryable.cs" />
+    <Compile Include="Linq\EnumerableExtensions_Random.cs" />
+    <Compile Include="Linq\SampleObject.cs" />
     <Compile Include="Url\UrlHelper_Combine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Url\UrlHelper_GetQuery.cs" />

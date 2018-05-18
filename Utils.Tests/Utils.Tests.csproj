@@ -52,7 +52,8 @@
     <Compile Include="Linq\EnumerableExtensions_Partition.cs" />
     <Compile Include="Linq\EnumerableExtensions_Recursive.cs" />
     <Compile Include="Linq\SampleTreeNode.cs" />
-    <Compile Include="Tools.cs" />
+    <Compile Include="Random\RandomHelper_Values.cs" />
+    <Compile Include="RandomTestHelper.cs" />
     <Compile Include="Format\EnumHelper_All.cs" />
     <Compile Include="Format\InvariantExtensions_Format.cs" />
     <Compile Include="Format\SampleEnum.cs" />

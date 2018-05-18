@@ -84,14 +84,9 @@ namespace Impworks.Utils.Random
         /// <summary>
         /// Pick a random item from the array.
         /// </summary>
-        public static T Pick<T>(params T[] items)
+        public static T PickAny<T>(params T[] items)
         {
-            if (items.Length == 0)
-                return default;
-
-            // works better on bigger numbers
-            var id = _random.Next(items.Length * 100);
-            return items[id / 100];
+            return Pick(items);
         }
 
         /// <summary>

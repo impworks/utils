@@ -15,7 +15,7 @@ namespace Utils.Tests.Linq
         {
             var src = Enumerable.Range(1, 100).ToList();
 
-            Tools.TestRandomized(() =>
+            RandomTestHelper.AtLeastOnce(() =>
             {
                 var result = src.Shuffle().ToList();
                 return result.SequenceEqual(src) == false
@@ -28,7 +28,7 @@ namespace Utils.Tests.Linq
         {
             var src = Enumerable.Range(1, 100).ToList();
 
-            Tools.TestRandomized(() =>
+            RandomTestHelper.AtLeastOnce(() =>
             {
                 var a = src.PickRandom();
                 var b = src.PickRandom();

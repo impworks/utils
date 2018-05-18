@@ -13,6 +13,12 @@ namespace Impworks.Utils.Url
         /// </summary>
         public static Uri Combine(string authority, params string[] parts)
         {
+            if(string.IsNullOrEmpty(authority))
+                throw new ArgumentNullException(nameof(authority));
+
+            if(parts == null)
+                throw new ArgumentNullException(nameof(parts));
+
             var safeParts = parts.Where(x => !string.IsNullOrWhiteSpace(x))
                                  .Select(x => x.Trim('/', '\\'));
 

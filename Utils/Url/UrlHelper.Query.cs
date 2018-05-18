@@ -17,7 +17,11 @@ namespace Impworks.Utils.Url
         /// <param name="obj">Object to deconstruct.</param>
         public static string GetQuery(object obj)
         {
-            return GetQuery(GetObjectProperties(obj));
+            if(obj == null)
+                throw new ArgumentNullException();
+
+            var props = GetObjectProperties(obj);
+            return GetQuery(props);
         }
 
         /// <summary>
@@ -26,6 +30,18 @@ namespace Impworks.Utils.Url
         /// <param name="props">List of properties and their values.</param>
         public static string GetQuery<T>(IDictionary<string, T> props)
         {
+            return GetQuery(props as IEnumerable<KeyValuePair<string, T>>);
+        }
+
+        /// <summary>
+        /// Renders the list of properties to a string.
+        /// </summary>
+        /// <param name="props">List of properties and their values.</param>
+        public static string GetQuery<T>(IEnumerable<KeyValuePair<string, T>> props)
+        {
+            if(props == null)
+                throw new ArgumentNullException();
+
             return props.Select(x => RenderProperty(x.Key, x.Value))
                         .Where(x => x != null)
                         .JoinString("&");

@@ -33,7 +33,7 @@ namespace Impworks.Utils.Strings
             ['т'] = "t",
             ['у'] = "u",
             ['ф'] = "f",
-            ['х'] = "h",
+            ['х'] = "kh",
             ['ц'] = "ts",
             ['ч'] = "ch",
             ['ш'] = "sh",
@@ -49,7 +49,7 @@ namespace Impworks.Utils.Strings
         /// <summary>
         /// Characters that must not be transliterated.
         /// </summary>
-        private static readonly Regex _safeChecker = new Regex(@"[a-z0-9_-\.]", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.ExplicitCapture);
+        private static readonly Regex _safeChecker = new Regex(@"[a-z0-9_\.-]", RegexOptions.IgnoreCase | RegexOptions.Compiled | RegexOptions.ExplicitCapture);
 
         /// <summary>
         /// Transliterates a string, replacing russian characters with english ones.

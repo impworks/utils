@@ -64,6 +64,10 @@
     <Compile Include="Linq\EnumerableExtensions_OrderBy_IQueryable.cs" />
     <Compile Include="Linq\EnumerableExtensions_Random.cs" />
     <Compile Include="Linq\SampleObject.cs" />
+    <Compile Include="Strings\StringExtensions_Capitalize.cs" />
+    <Compile Include="Strings\StringExtensions_Parse.cs" />
+    <Compile Include="Strings\StringExtensions_ValueOrNull.cs" />
+    <Compile Include="Strings\StringHelper_Coalesce.cs" />
     <Compile Include="Url\UrlHelper_Combine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Url\UrlHelper_GetQuery.cs" />

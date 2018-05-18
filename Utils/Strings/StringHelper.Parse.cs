@@ -32,6 +32,7 @@ namespace Impworks.Utils.Strings
             [typeof(byte)] = (Func<string, byte>) (x => byte.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(sbyte)] = (Func<string, sbyte>) (x => sbyte.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(char)] = (Func<string, char>) (x => char.Parse(x)),
+            [typeof(decimal)] = (Func<string, decimal>) (x => decimal.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(DateTime)] = (Func<string, DateTime>) (x => DateTime.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(DateTimeOffset)] = (Func<string, DateTimeOffset>) (x => DateTime.Parse(x, CultureInfo.InvariantCulture)),
 
@@ -44,6 +45,7 @@ namespace Impworks.Utils.Strings
             [typeof(byte?)] = (Func<string, byte?>) (x => byte.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(sbyte?)] = (Func<string, sbyte?>) (x => sbyte.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(char?)] = (Func<string, char?>) (x => char.Parse(x)),
+            [typeof(decimal?)] = (Func<string, decimal?>) (x => decimal.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(DateTime?)] = (Func<string, DateTime?>) (x => DateTime.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(DateTimeOffset?)] = (Func<string, DateTimeOffset?>) (x => DateTime.Parse(x, CultureInfo.InvariantCulture)),
 

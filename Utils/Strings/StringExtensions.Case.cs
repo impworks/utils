@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 
 namespace Impworks.Utils.Strings
 {
@@ -9,6 +10,15 @@ namespace Impworks.Utils.Strings
         /// </summary>
         public static string Capitalize(this string str, CultureInfo culture)
         {
+            if (str == null)
+                throw new ArgumentNullException(nameof(str));
+
+            if (culture == null)
+                throw new ArgumentNullException(nameof(culture));
+
+            if (str.Length == 0)
+                return str;
+
             return str.Substring(0, 1).ToUpper(culture) + str.Substring(1);
         }
 
@@ -17,7 +27,7 @@ namespace Impworks.Utils.Strings
         /// </summary>
         public static string Capitalize(this string str)
         {
-            return str.Substring(0, 1).ToUpper(CultureInfo.InvariantCulture) + str.Substring(1);
+            return Capitalize(str, CultureInfo.CurrentCulture);
         }
     }
 }

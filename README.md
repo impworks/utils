@@ -1,6 +1,6 @@
 # Impworks.Utils
 
-![AppVeyor](https://img.shields.io/appveyor/ci/impworks/Utils.svg) [![NuGet](https://img.shields.io/nuget/v/Impworks.Utils.svg)](https://www.nuget.org/packages/Impworks.Utils/)
+![AppVeyor](https://img.shields.io/appveyor/ci/impworks/Utils.svg) ![AppVeyor Tests](https://img.shields.io/appveyor/tests/impworks/Utils.svg) [![NuGet](https://img.shields.io/nuget/v/Impworks.Utils.svg)](https://www.nuget.org/packages/Impworks.Utils/)
 
 A collection of useful helper methods.
 

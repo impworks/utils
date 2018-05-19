@@ -17,7 +17,7 @@ namespace Impworks.Utils.Strings
             ['г'] = "g",
             ['д'] = "d",
             ['е'] = "e",
-            ['ё'] = "ye",
+            ['ё'] = "yo",
             ['ж'] = "zh",
             ['з'] = "z",
             ['и'] = "i",
@@ -57,41 +57,58 @@ namespace Impworks.Utils.Strings
         /// <param name="str">String to transliterate.</param>
         /// <param name="fallbackChar">Character to use instead of unknown locale chars. Defaults to dash.</param>
         /// <param name="safeRegex">Regular expression to check characters that must be left as-is.</param>
-        public static string Transliterate(string str, string fallbackChar = "-", string safeRegex = null)
+        /// <param name="cleanOutput">Flag indicating that fallback characters will be cleaned on start/end and not duplicated.</param>
+        public static string Transliterate(string str, string fallbackChar = "-", string safeRegex = null, bool cleanOutput = true)
         {
-            var result = new StringBuilder(str.Length);
+            var sb = new StringBuilder(str.Length);
             var safeChecker = safeRegex == null ? _safeChecker : new Regex(safeRegex, RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture);
+            var lastAddedFallback = false;
 
             foreach (var ch in str)
             {
                 // character is russian
                 if (_charMap.TryGetValue(ch, out var rep))
                 {
-                    result.Append(rep);
+                    sb.Append(rep);
+                    lastAddedFallback = false;
                     continue;
                 }
 
                 var chstr = ch.ToString();
 
                 // character is russian, but uppercase: capitalize it
-                if (_charMap.TryGetValue(chstr.ToUpperInvariant()[0], out var repUpper))
+                if (_charMap.TryGetValue(chstr.ToLowerInvariant()[0], out var repUpper))
                 {
-                    result.Append(repUpper.Capitalize());
+                    sb.Append(repUpper.Capitalize());
+                    lastAddedFallback = false;
                     continue;
                 }
 
                 // character is safe: append as is
                 if (safeChecker.IsMatch(chstr))
                 {
-                    result.Append(ch);
+                    sb.Append(ch);
+                    lastAddedFallback = false;
                     continue;
                 }
 
                 // fallback
-                result.Append(fallbackChar);
+                if (!lastAddedFallback || !cleanOutput)
+                {
+                    sb.Append(fallbackChar);
+                    lastAddedFallback = true;
+                }
             }
 
-            return result.ToString();
+            var result = sb.ToString();
+
+            if (cleanOutput)
+            {
+                var esc = Regex.Escape(fallbackChar);
+                result = Regex.Replace(result, $"^{esc}|{esc}$", "");
+            }
+
+            return result;
         }
     }
 }

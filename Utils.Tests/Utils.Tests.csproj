@@ -68,6 +68,7 @@
     <Compile Include="Strings\StringExtensions_Parse.cs" />
     <Compile Include="Strings\StringExtensions_ValueOrNull.cs" />
     <Compile Include="Strings\StringHelper_Coalesce.cs" />
+    <Compile Include="Strings\StringHelper_Transliterate.cs" />
     <Compile Include="Url\UrlHelper_Combine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Url\UrlHelper_GetQuery.cs" />

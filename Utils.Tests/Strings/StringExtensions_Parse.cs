@@ -74,10 +74,40 @@ namespace Utils.Tests.Strings
         }
 
         [Test]
-        public void TryParese_returns_default_on_incorrect_value()
+        public void TryParse_returns_default_on_incorrect_value()
         {
             Assert.AreEqual(0, "1-2-3".TryParse<int>());
             Assert.AreEqual(null, "1-2-3".TryParse<int?>());
+        }
+
+        [Test]
+        public void TryParseList_returns_list()
+        {
+            Assert.AreEqual(new [] { 1, 2, 3 }, "1,2,3".TryParseList<int>());
+        }
+        
+        [Test]
+        public void TryParseList_skips_failed_entries()
+        {
+            Assert.AreEqual(new[] { 1, 3 }, "1,test,3".TryParseList<int>());
+        }
+
+        [Test]
+        public void TryParseList_returns_empty_list_if_no_item_succeeded()
+        {
+            Assert.AreEqual(new int[0], "a,b,c".TryParseList<int>());
+        }
+
+        [Test]
+        public void TryParseList_uses_separator()
+        {
+            Assert.AreEqual(new[] { 1, 2, 3 }, "1-2-3".TryParseList<int>(separator: "-"));
+        }
+
+        [Test]
+        public void TryParseList_uses_parseFunc()
+        {
+            Assert.AreEqual(new[] { 1, 2, 3 }, "@1,@2,@3".TryParseList<int>(parseFunc: str => int.Parse(str.TrimStart('@'))));
         }
 
         void Check<T>(string src, T result)

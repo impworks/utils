@@ -17,6 +17,12 @@ namespace Impworks.Utils.Xml
         /// <returns>String value of the attribute, or null.</returns>
         public static string Attr(this XElement xml, string name)
         {
+            if(xml == null)
+                throw new ArgumentNullException(nameof(xml));
+
+            if(name == null)
+                throw new ArgumentNullException(nameof(name));
+
             return xml.Attribute(name)?.Value;
         }
 
@@ -41,7 +47,11 @@ namespace Impworks.Utils.Xml
         /// <returns>Converted value of the attribute, or default.</returns>
         public static T ParseAttr<T>(this XElement xml, string name, Func<string, T> parseFunc = null)
         {
-            return xml.Attr(name).Parse(parseFunc);
+            var value = xml.Attr(name);
+            if(value == null)
+                throw new ArgumentException($"Attribute '{name}' does not exist.", nameof(name));
+
+            return value.Parse(parseFunc);
         }
     }
 }

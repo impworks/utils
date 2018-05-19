@@ -66,7 +66,13 @@ namespace Utils.Tests.Strings
         {
             Assert.Throws<FormatException>(() => "1-2-3".Parse<int>());
         }
-        
+
+        [Test]
+        public void Parse_throws_error_on_null()
+        {
+            Assert.Throws<ArgumentNullException>(() => (null as string).Parse<int>());
+        }
+
         [Test]
         public void TryParse_accepts_parse_function()
         {
@@ -78,6 +84,13 @@ namespace Utils.Tests.Strings
         {
             Assert.AreEqual(0, "1-2-3".TryParse<int>());
             Assert.AreEqual(null, "1-2-3".TryParse<int?>());
+        }
+
+        [Test]
+        public void TryParse_accepts_null()
+        {
+            Assert.AreEqual(0, (null as string).TryParse<int>());
+            Assert.AreEqual(null, (null as string).TryParse<int?>());
         }
 
         [Test]
@@ -108,6 +121,12 @@ namespace Utils.Tests.Strings
         public void TryParseList_uses_parseFunc()
         {
             Assert.AreEqual(new[] { 1, 2, 3 }, "@1,@2,@3".TryParseList<int>(parseFunc: str => int.Parse(str.TrimStart('@'))));
+        }
+
+        [Test]
+        public void TryParseList_accepts_null()
+        {
+            Assert.AreEqual(new int[0], (null as string).TryParseList<int>());
         }
 
         void Check<T>(string src, T result)

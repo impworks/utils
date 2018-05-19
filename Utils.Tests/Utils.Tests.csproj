@@ -72,6 +72,7 @@
     <Compile Include="Url\UrlHelper_Combine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Url\UrlHelper_GetQuery.cs" />
+    <Compile Include="Xml\XmlExtensions_All.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

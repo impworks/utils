@@ -13,6 +13,9 @@ namespace Impworks.Utils.Strings
         /// <param name="parseFunc">Parser function that creates a value from the string.</param>
         public static T Parse<T>(this string str, Func<string, T> parseFunc = null)
         {
+            if(str == null)
+                throw new ArgumentNullException(nameof(str));
+
             var func = parseFunc ?? StringHelper.GetParseFunction<T>();
             return func(str);
         }

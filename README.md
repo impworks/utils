@@ -34,6 +34,11 @@ The package provides the following methods, split into logical parts.
       ```csharp
       StringHelper.Coalesce(null, "", "test") // test
       ```
+      Ends/starts with substring:
+      ```
+      "hello world".StartsWithPart("hello test", 5) // true
+      "a test".EndsWithPart("b TEST", 4, ignoreCase: true) // true
+      ```
       Transliteration from Russian:
       ```csharp
       StringHelper.Transliterate("Привет мир", "_") // "Privet_mir"

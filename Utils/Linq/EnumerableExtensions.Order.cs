@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using Impworks.Utils.Random;
+using System.Reflection;
 
 namespace Impworks.Utils.Linq
 {
@@ -11,6 +11,9 @@ namespace Impworks.Utils.Linq
         /// <summary>
         /// Orders the sequence by a field with direction based on a flag.
         /// </summary>
+        /// <param name="source">The sequence of values.</param>
+        /// <param name="orderExpr">Descriptor of the property to use for sorting.</param>
+        /// <param name="isDescending">Order direction flag.</param>
         public static IOrderedEnumerable<T> OrderBy<T, T2>(this IEnumerable<T> source, Func<T, T2> orderExpr, bool isDescending)
         {
             return isDescending
@@ -21,6 +24,9 @@ namespace Impworks.Utils.Linq
         /// <summary>
         /// Orders the sequence by a field with direction based on a flag.
         /// </summary>
+        /// <param name="source">The sequence of values.</param>
+        /// <param name="orderExpr">Descriptor of the property to use for sorting.</param>
+        /// <param name="isDescending">Order direction flag.</param>
         public static IOrderedEnumerable<T> ThenBy<T, T2>(this IOrderedEnumerable<T> source, Func<T, T2> orderExpr, bool isDescending)
         {
             return isDescending
@@ -31,6 +37,9 @@ namespace Impworks.Utils.Linq
         /// <summary>
         /// Orders the query by a field with direction based on a flag.
         /// </summary>
+        /// <param name="source">The sequence of values.</param>
+        /// <param name="orderExpr">Descriptor of the property to use for sorting.</param>
+        /// <param name="isDescending">Order direction flag.</param>
         public static IOrderedQueryable<T> OrderBy<T, T2>(this IQueryable<T> source, Expression<Func<T, T2>> orderExpr, bool isDescending)
         {
             return isDescending
@@ -41,6 +50,9 @@ namespace Impworks.Utils.Linq
         /// <summary>
         /// Orders the query by a field with direction based on a flag.
         /// </summary>
+        /// <param name="source">The sequence of values.</param>
+        /// <param name="orderExpr">Descriptor of the property to use for sorting.</param>
+        /// <param name="isDescending">Order direction flag.</param>
         public static IOrderedQueryable<T> ThenBy<T, T2>(this IOrderedQueryable<T> source, Expression<Func<T, T2>> orderExpr, bool isDescending)
         {
             return isDescending
@@ -49,29 +61,93 @@ namespace Impworks.Utils.Linq
         }
 
         /// <summary>
-        /// Returns the sequence of the same items in random order.
+        /// Orders the query by a field name with direction based on a flag.
         /// </summary>
-        public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
+        /// <param name="source">The sequence of values.</param>
+        /// <param name="propName">Name of the property to use for sorting.</param>
+        /// <param name="isDescending">Order direction flag.</param>
+        public static IOrderedQueryable<T> OrderBy<T>(this IQueryable<T> source, string propName, bool isDescending)
         {
-            return source.Select(x => new { Value = x, Random = RandomHelper.Float() })
-                         .OrderBy(x => x.Random)
-                         .Select(x => x.Value);
+            var method = isDescending ? OrderMethods.OrderByDescending : OrderMethods.OrderBy;
+            return OrderByInternal(source, propName, method);
         }
 
         /// <summary>
-        /// Picks a random element from the collection.
+        /// Orders the query by a field name with direction based on a flag.
         /// </summary>
-        /// <param name="source">Source collection.</param>
-        /// <param name="weightFunc">
-        /// Weight function. Elements with bigger weight are more likely to be selected.
-        /// If not specified, all elements have equal weights.
-        /// </param>
-        public static T PickRandom<T>(this IReadOnlyList<T> source, Func<T, double> weightFunc = null)
+        /// <param name="source">The sequence of values.</param>
+        /// <param name="propName">Name of the property to use for sorting.</param>
+        /// <param name="isDescending">Order direction flag.</param>
+        public static IOrderedQueryable<T> ThenBy<T>(this IOrderedQueryable<T> source, string propName, bool isDescending)
         {
-            if (weightFunc != null)
-                return RandomHelper.PickWeighted(source, weightFunc);
-
-            return RandomHelper.Pick(source);
+            var method = isDescending ? OrderMethods.ThenByDescending : OrderMethods.ThenBy;
+            return OrderByInternal(source, propName, method);
         }
+
+        #region Private helpers
+
+        /// <summary>
+        /// The cached references to ordering methods.
+        /// </summary>
+        private static class OrderMethods
+        {
+            static OrderMethods()
+            {
+                var methods = typeof(Queryable).GetMethods()
+                                               .Where(x => x.GetParameters().Length == 2
+                                                           && (x.Name.StartsWith("OrderBy") || x.Name.StartsWith("ThenBy")))
+                                               .ToDictionary(x => x.Name, x => x);
+
+                OrderBy = methods[nameof(OrderBy)];
+                OrderByDescending = methods[nameof(OrderByDescending)];
+                ThenBy = methods[nameof(ThenBy)];
+                ThenByDescending = methods[nameof(ThenByDescending)];
+            }
+
+            public static readonly MethodInfo OrderBy;
+            public static readonly MethodInfo OrderByDescending;
+            public static readonly MethodInfo ThenBy;
+            public static readonly MethodInfo ThenByDescending;
+        }
+
+        /// <summary>
+        /// Applies the arbitrary ordering method with arbitrary property.
+        /// </summary>
+        private static IOrderedQueryable<T> OrderByInternal<T>(IQueryable<T> source, string propName, MethodInfo method)
+        {
+            var arg = Expression.Parameter(typeof(T), "x");
+            var expr = (Expression) arg;
+            var type = typeof(T);
+
+            var parts = propName.Split('.');
+            foreach (var part in parts)
+            {
+                var propType = type.GetProperty(part)?.PropertyType
+                               ?? type.GetField(part)?.FieldType;
+
+                if(propType == null)
+                    throw new ArgumentException($"Invalid property path ('{propName}'): type '{type.Name}' has no property or field named '{part}'.");
+
+                expr = Expression.PropertyOrField(expr, part);
+                type = propType;
+            }
+
+            var lambda = Expression.Lambda(expr, arg);
+            var query = source.Provider.CreateQuery(
+                Expression.Call(
+                    null,
+                    method.MakeGenericMethod(typeof(T), type),
+                    new []
+                    {
+                        source.Expression,
+                        Expression.Quote(lambda),
+                    }
+                )
+            );
+
+            return (IOrderedQueryable<T>) query;
+        }
+
+        #endregion
     }
 }

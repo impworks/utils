@@ -19,5 +19,7 @@
         public int Value { get; set; }
 
         public string Str { get; set; }
+
+        public string Field;
     }
 }

@@ -24,6 +24,10 @@ namespace Utils.Tests.Strings
             yield return Tuple.Create("1.2", (float)1.2);
             yield return Tuple.Create("1.23", (decimal)1.23);
 
+            yield return Tuple.Create("true", true);
+            yield return Tuple.Create("false", false);
+            yield return Tuple.Create("TRUE", true);
+            yield return Tuple.Create("FALSE", false);
             yield return Tuple.Create("x", 'x');
 
             yield return Tuple.Create("2018-05-18", new DateTime(2018, 05, 18));
@@ -41,6 +45,10 @@ namespace Utils.Tests.Strings
             yield return Tuple.Create("1.2", (float?)1.2);
             yield return Tuple.Create("1.23", (decimal?)1.23);
 
+            yield return Tuple.Create("true", (bool?)true);
+            yield return Tuple.Create("false", (bool?) false);
+            yield return Tuple.Create("TRUE", (bool?) true);
+            yield return Tuple.Create("FALSE", (bool?) false);
             yield return Tuple.Create("x", (char?)'x');
 
             yield return Tuple.Create("2018-05-18", (DateTime?) new DateTime(2018, 05, 18));
@@ -52,6 +60,7 @@ namespace Utils.Tests.Strings
         [TestCaseSource(typeof(StringExtensions_Parse), nameof(ParseTestCases))]
         public void Parse_parses_values(dynamic tuple)
         {
+            // required for automatic generic type inferrence via dynamics
             Check(tuple.Item1, tuple.Item2);
         }
 

@@ -23,6 +23,7 @@ namespace Impworks.Utils.Strings
         /// </summary>
         private static Dictionary<Type, Delegate> ParseFuncs = new Dictionary<Type, Delegate>
         {
+            [typeof(bool)] = (Func<string, bool>) (x => bool.Parse(x)),
             [typeof(int)] = (Func<string, int>) (x => int.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(uint)] = (Func<string, uint>) (x => uint.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(long)] = (Func<string, long>) (x => long.Parse(x, CultureInfo.InvariantCulture)),
@@ -36,6 +37,7 @@ namespace Impworks.Utils.Strings
             [typeof(DateTime)] = (Func<string, DateTime>) (x => DateTime.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(DateTimeOffset)] = (Func<string, DateTimeOffset>) (x => DateTime.Parse(x, CultureInfo.InvariantCulture)),
 
+            [typeof(bool?)] = (Func<string, bool?>) (x => bool.Parse(x)),
             [typeof(int?)] = (Func<string, int?>) (x => int.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(uint?)] = (Func<string, uint?>) (x => uint.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(long?)] = (Func<string, long?>) (x => long.Parse(x, CultureInfo.InvariantCulture)),

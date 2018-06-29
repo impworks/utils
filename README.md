@@ -24,18 +24,20 @@ The package provides the following methods, split into logical parts.
 
   * Strings
   
-      Parsing to primitive types:
+      Parsing to various types (primitives supported by default):
       ```csharp
       "123".Parse<int>() // 123
       "hello".TryParse<int?>() // null
+      "12345".TryParse<MyType>(MyParseFunc) // MyType
       "1,2,test,3".TryParseList<int>() // 1, 2, 3
+      "1;2;test;3".TryParseList<int>(separator: ";") // 1, 2, 3
       ```
       Coalesce:
       ```csharp
       StringHelper.Coalesce(null, "", "test") // test
       ```
       Ends/starts with substring:
-      ```
+      ```csharp
       "hello world".StartsWithPart("hello test", 5) // true
       "a test".EndsWithPart("b TEST", 4, ignoreCase: true) // true
       ```
@@ -53,6 +55,7 @@ The package provides the following methods, split into logical parts.
       Conditional ordering:
       ```csharp
       new [] { 4, 6, 1 }.OrderBy(x => x, isDescending) // true => 6, 4, 1, false => 1, 4, 6
+      new [] { obj1, obj2 }.OrderBy("FieldA.FieldB", isDescending) // orders by field or path
       ```
       Partitioning:
       ```csharp
@@ -89,6 +92,16 @@ The package provides the following methods, split into logical parts.
     ```csharp
     RandomHelper.Pick(1, 2, 3, 4, 5) // 4
     RandomHelper.PickWeighted(new [] { "a", "test", "blablabla" }, x => x.Length ) // "blablabla"
+    ```
+
+  * Dictionary
+
+    Value retrieval:
+    ```csharp
+    var dict = new Dictionary<string, int> { ["hello"] = 1, ["world"] = 2 };
+    dict.TryGetValue("hello") // 1
+    dict.TryGetValue("test") // 0
+    dict.TryGetNullableValue("test") // null
     ```
     
   * XML

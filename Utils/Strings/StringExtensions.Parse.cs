@@ -55,7 +55,7 @@ namespace Impworks.Utils.Strings
 
             if (str != null)
             {
-                var parts = str.Split(new[] {separator}, StringSplitOptions.None);
+                var parts = str.Split(new[] {separator}, StringSplitOptions.RemoveEmptyEntries);
                 var func = parseFunc ?? StringHelper.GetParseFunction<T>();
 
                 foreach (var part in parts)

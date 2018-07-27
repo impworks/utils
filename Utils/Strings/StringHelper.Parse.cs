@@ -36,6 +36,7 @@ namespace Impworks.Utils.Strings
             [typeof(decimal)] = (Func<string, decimal>) (x => decimal.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(DateTime)] = (Func<string, DateTime>) (x => DateTime.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(DateTimeOffset)] = (Func<string, DateTimeOffset>) (x => DateTime.Parse(x, CultureInfo.InvariantCulture)),
+            [typeof(Guid)] = (Func<string, Guid>) (x => Guid.Parse(x)),
 
             [typeof(bool?)] = (Func<string, bool?>) (x => bool.Parse(x)),
             [typeof(int?)] = (Func<string, int?>) (x => int.Parse(x, CultureInfo.InvariantCulture)),
@@ -50,6 +51,7 @@ namespace Impworks.Utils.Strings
             [typeof(decimal?)] = (Func<string, decimal?>) (x => decimal.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(DateTime?)] = (Func<string, DateTime?>) (x => DateTime.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(DateTimeOffset?)] = (Func<string, DateTimeOffset?>) (x => DateTime.Parse(x, CultureInfo.InvariantCulture)),
+            [typeof(Guid?)] = (Func<string, Guid?>) (x => Guid.Parse(x)),
 
             [typeof(string)] = (Func<string, string>) (x => x)
         };

@@ -34,6 +34,8 @@ namespace Utils.Tests.Strings
             yield return Tuple.Create("2018-05-18 12:34:56", new DateTime(2018, 05, 18, 12, 34, 56));
             yield return Tuple.Create("2018-05-18", new DateTimeOffset(new DateTime(2018, 05, 18)));
 
+            yield return Tuple.Create("90b3a536-da16-4238-b781-cee864a9ec00", new Guid("90b3a536-da16-4238-b781-cee864a9ec00"));
+
             yield return Tuple.Create("123", (int?)123);
             yield return Tuple.Create("123", (uint?)123);
             yield return Tuple.Create("123", (long?)123);
@@ -54,6 +56,8 @@ namespace Utils.Tests.Strings
             yield return Tuple.Create("2018-05-18", (DateTime?) new DateTime(2018, 05, 18));
             yield return Tuple.Create("2018-05-18 12:34:56", (DateTime?) new DateTime(2018, 05, 18, 12, 34, 56));
             yield return Tuple.Create("2018-05-18", (DateTimeOffset?) new DateTimeOffset(new DateTime(2018, 05, 18)));
+
+            yield return Tuple.Create("90b3a536-da16-4238-b781-cee864a9ec00", (Guid?) new Guid("90b3a536-da16-4238-b781-cee864a9ec00"));
         }
 
         [Test]

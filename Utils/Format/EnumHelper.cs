@@ -35,7 +35,7 @@ namespace Impworks.Utils.Format
                            .ToDictionary(
                                x => (T) x.GetRawConstantValue(),
                                x => x.GetCustomAttribute<DescriptionAttribute>()?.Description
-                                    ?? x.GetRawConstantValue().ToString()
+                                    ?? Enum.GetName(type, x.GetRawConstantValue())
                            );
             });
 

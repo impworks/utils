@@ -13,4 +13,13 @@ namespace Utils.Tests.Format
         [Description("Other value")]
         World = 37,
     }
+
+    /// <summary>
+    /// An enumeration without descriptions.
+    /// </summary>
+    public enum SampleEnum2
+    {
+        Hello = 13,
+        World = 37
+    }
 }

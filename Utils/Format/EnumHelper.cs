@@ -18,10 +18,17 @@ namespace Impworks.Utils.Format
         private static readonly ConcurrentDictionary<Type, object> DescriptionCache = new ConcurrentDictionary<Type, object>();
 
         /// <summary>
-        /// Returns the lookup of enum values and readable descriptions (from [Description] attribute).
+        /// Cached description values for all values of known enums.
+        /// </summary>
+        private static readonly ConcurrentDictionary<Type, object> DynamicDescriptionCache = new ConcurrentDictionary<Type, object>();
+
+        #region Strongly typed
+
+        /// <summary>
+        /// Returns the lookup of enum values and readable descriptions (from [Description] attribute or the label).
         /// </summary>
         public static IReadOnlyDictionary<T, string> GetEnumDescriptions<T>()
-            where T: struct
+            where T : struct
         {
             var type = typeof(T);
             var lookup = DescriptionCache.GetOrAdd(type, t =>
@@ -33,13 +40,13 @@ namespace Impworks.Utils.Format
 
                 return type.GetFields(flags)
                            .ToDictionary(
-                               x => (T) x.GetRawConstantValue(),
+                               x => (T)x.GetRawConstantValue(),
                                x => x.GetCustomAttribute<DescriptionAttribute>()?.Description
                                     ?? Enum.GetName(type, x.GetRawConstantValue())
                            );
             });
 
-            return (IReadOnlyDictionary<T, string>) lookup;
+            return (IReadOnlyDictionary<T, string>)lookup;
         }
 
         /// <summary>
@@ -55,11 +62,43 @@ namespace Impworks.Utils.Format
         /// Returns the list of enum values.
         /// </summary>
         public static IReadOnlyList<T> GetEnumValues<T>()
-            where T: struct
+            where T : struct
         {
             return Enum.GetValues(typeof(T))
                        .Cast<T>()
                        .ToList();
         }
+
+        #endregion
+
+        #region Weakly typed
+
+        /// <summary>
+        /// Returns the lookup of enum values and readable descriptions (from [Description] attribute or the label).
+        /// </summary>
+        public static IReadOnlyDictionary<object, string> GetEnumDescriptions(Type type)
+        {
+            if(!type.IsEnum)
+                throw new ArgumentException($"Type {type.Name} is not an Enum.", nameof(type));
+
+            var lookup = DynamicDescriptionCache.GetOrAdd(type, t =>
+            {
+                var flags = BindingFlags.DeclaredOnly
+                            | BindingFlags.Static
+                            | BindingFlags.Public
+                            | BindingFlags.GetField;
+
+                return type.GetFields(flags)
+                           .ToDictionary(
+                               x => Enum.ToObject(type, x.GetRawConstantValue()),
+                               x => x.GetCustomAttribute<DescriptionAttribute>()?.Description
+                                    ?? Enum.GetName(type, x.GetRawConstantValue())
+                           );
+            });
+
+            return (IReadOnlyDictionary<object, string>) lookup;
+        }
+
+        #endregion
     }
 }

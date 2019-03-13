@@ -19,6 +19,9 @@ namespace Impworks.Utils.Url
             if(parts == null)
                 throw new ArgumentNullException(nameof(parts));
 
+            if (!authority.EndsWith("/"))
+                authority += "/";
+
             var safeParts = parts.Where(x => !string.IsNullOrWhiteSpace(x))
                                  .Select(x => x.Trim('/', '\\'));
 

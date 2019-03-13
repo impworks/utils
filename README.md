@@ -1,7 +1,6 @@
 # Impworks.Utils
 
-![AppVeyor](https://img.shields.io/appveyor/ci/impworks/Utils.svg) ![AppVeyor Tests](https://img.shields.io/appveyor/tests/impworks/Utils.svg) [![NuGet](https://img.shields.io/nuget/v/Impworks.Utils.svg)](https://www.nuget.org/packages/Impworks.Utils/)
-![NuGet Downloads](https://img.shields.io/nuget/dt/Impworks.Utils.svg)
+![AppVeyor](https://img.shields.io/appveyor/ci/impworks/Utils.svg) ![AppVeyor Tests](https://img.shields.io/appveyor/tests/impworks/Utils.svg) [![NuGet](https://img.shields.io/nuget/v/Impworks.Utils.svg)](https://www.nuget.org/packages/Impworks.Utils/) ![NuGet Downloads](https://img.shields.io/nuget/dt/Impworks.Utils.svg)
 
 A collection of useful helper methods.
 
@@ -46,9 +45,9 @@ The package provides the following methods, split into logical parts.
       ```csharp
       StringHelper.Transliterate("Привет мир", "_") // "Privet_mir"
       ```
-     
+
   * Enumerable
-  
+
       `Distinct` by projection:
       ```csharp
       new [] { 1, 2, 3 }.DistinctBy(x => x % 2) // 1, 2
@@ -70,7 +69,7 @@ The package provides the following methods, split into logical parts.
       ```
 
   * Enums
-  
+
       Captions from `Description` attribute:
       ```csharp
       enum Language
@@ -80,33 +79,45 @@ The package provides the following methods, split into logical parts.
       }
       EnumHelper.GetEnumDescriptions<Language>() // { Language.CSharp = "C#", Language.CPlusPlus = "C++" }
       ```
-      
+
   * Random
-  
-    Random values:
-    ```csharp
-    RandomHelper.Int(1, 100) // 42
-    RandomHelper.Float() // 0.1337
-    RandomHelper.Sign() // -1 or 1
-    ```
-    Random picks:
-    ```csharp
-    RandomHelper.Pick(1, 2, 3, 4, 5) // 4
-    RandomHelper.PickWeighted(new [] { "a", "test", "blablabla" }, x => x.Length ) // "blablabla"
-    ```
+
+      Random values:
+      ```csharp
+      RandomHelper.Int(1, 100) // 42
+      RandomHelper.Float() // 0.1337
+      RandomHelper.Sign() // -1 or 1
+      ```
+      Random picks:
+      ```csharp
+      RandomHelper.Pick(1, 2, 3, 4, 5) // 4
+      RandomHelper.PickWeighted(new [] { "a", "test", "blablabla" }, x => x.Length ) // "blablabla"
+      ```
 
   * Dictionary
 
-    Value retrieval:
-    ```csharp
-    var dict = new Dictionary<string, int> { ["hello"] = 1, ["world"] = 2 };
-    dict.TryGetValue("hello") // 1
-    dict.TryGetValue("test") // 0
-    dict.TryGetNullableValue("test") // null
-    ```
-    
+      Value retrieval:
+      ```csharp
+      var dict = new Dictionary<string, int> { ["hello"] = 1, ["world"] = 2 };
+      dict.TryGetValue("hello") // 1
+      dict.TryGetValue("test") // 0
+      dict.TryGetNullableValue("test") // null
+      ```
+
+  * Urls
+
+      URL parts combination:
+      ```csharp
+      UrlHelper.Combine("http://a.com/foo", "bar/", "/test") // http://a.com/foo/bar/test
+      ```
+      Query generation from an object (accepts anonymous objects, `Dictionary` and `JObject`):
+      ```csharp
+      UrlHelper.GetQuery(new { A = 1, B = "hello" }) // "A=1&B=hello"
+      UrlHelper.GetQuery(new { A = new [] { 1, 2, 3 } }) // "A=1&A=2&A=3"
+      ```
+
   * XML
-  
+
       Attributes:
       ```csharp
       var xml = XElement.Parse(@"<test a=""1337"" b=""true"" />");

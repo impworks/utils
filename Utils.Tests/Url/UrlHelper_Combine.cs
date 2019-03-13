@@ -29,6 +29,18 @@ namespace Utils.Tests.Url
         }
 
         [Test]
+        public void Combine_adds_missing_slashes_2()
+        {
+            Assert.AreEqual("http://a/b/c", UrlHelper.Combine("http://a/b", "c").ToString());
+        }
+
+        [Test]
+        public void Combine_adds_missing_slashes_3()
+        {
+            Assert.AreEqual("http://a/c", UrlHelper.Combine("http://a/b?", "c").ToString());
+        }
+
+        [Test]
         public void Combine_removes_trailing_slash()
         {
             Assert.AreEqual("http://a/b", UrlHelper.Combine("http://a", @"b/").ToString());

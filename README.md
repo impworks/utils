@@ -101,6 +101,7 @@ The package provides the following methods, split into logical parts.
       var dict = new Dictionary<string, int> { ["hello"] = 1, ["world"] = 2 };
       dict.TryGetValue("hello") // 1
       dict.TryGetValue("test") // 0
+      dict.TryGetValue("foo", null, "hello") // 1
       dict.TryGetNullableValue("test") // null
       ```
 

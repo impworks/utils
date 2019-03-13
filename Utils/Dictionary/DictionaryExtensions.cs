@@ -13,17 +13,46 @@ namespace Impworks.Utils.Dictionary
         /// </summary>
         public static TVal TryGetValue<TKey, TVal>(this IDictionary<TKey, TVal> dict, TKey key)
         {
-            return dict.TryGetValue(key, out var result) ? result : default;
+            return key != null && dict.TryGetValue(key, out var result) ? result : default;
+        }
+
+        /// <summary>
+        /// Returns the value for the first key in the list that exists in the dictionary.
+        /// Otherwise, the default value for the type is returned.
+        /// </summary>
+        public static TVal TryGetValue<TKey, TVal>(this IDictionary<TKey, TVal> dict, params TKey[] keys)
+        {
+            if(keys != null)
+                foreach (var key in keys)
+                    if (key != null && dict.TryGetValue(key, out var result))
+                        return result;
+
+            return default;
         }
 
         /// <summary>
         /// Returns the value if it exists in the dictionary.
-        /// Otherwise, null is returned.
+        /// If no keys exist, null is returned.
         /// </summary>
         public static TVal? TryGetNullableValue<TKey, TVal>(this IDictionary<TKey, TVal> dict, TKey key)
             where TVal: struct
         {
-            return dict.TryGetValue(key, out var result) ? result : (TVal?) null;
+            return key != null && dict.TryGetValue(key, out var result) ? result : (TVal?) null;
+        }
+
+        /// <summary>
+        /// Returns the value for the first key in the list that exists in the dictionary.
+        /// If no keys exist, null is returned.
+        /// </summary>
+        public static TVal? TryGetNullableValue<TKey, TVal>(this IDictionary<TKey, TVal> dict, params TKey[] keys)
+            where TVal: struct
+        {
+            if(keys != null)
+                foreach (var key in keys)
+                    if (key != null && dict.TryGetValue(key, out var result))
+                        return result;
+
+            return null;
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Xml.Linq;
 
 namespace Impworks.Utils.Strings
 {
@@ -14,6 +15,16 @@ namespace Impworks.Utils.Strings
             var type = typeof(T);
             if (ParseFuncs.TryGetValue(type, out var func))
                 return (Func<string, T>) func;
+
+            if (type.IsEnum)
+                return x => (T) Enum.Parse(type, x);
+
+            if (type.IsGenericTypeDefinition && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                var innerType = type.GetGenericArguments()[0];
+                if (innerType.IsEnum)
+                    return x => (T) Enum.Parse(innerType, x);
+            }
 
             throw new Exception($"No parser function found for type '{type.Name}'.");
         }
@@ -53,7 +64,9 @@ namespace Impworks.Utils.Strings
             [typeof(DateTimeOffset?)] = (Func<string, DateTimeOffset?>) (x => DateTime.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(Guid?)] = (Func<string, Guid?>) (x => Guid.Parse(x)),
 
-            [typeof(string)] = (Func<string, string>) (x => x)
+            [typeof(string)] = (Func<string, string>) (x => x),
+            [typeof(XElement)] = (Func<string, XElement>)(x => XElement.Parse(x)),
+            [typeof(Uri)] = (Func<string, Uri>) (x => new Uri(x, UriKind.RelativeOrAbsolute))
         };
     }
 }

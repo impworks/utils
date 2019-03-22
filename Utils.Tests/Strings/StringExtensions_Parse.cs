@@ -36,6 +36,9 @@ namespace Utils.Tests.Strings
 
             yield return Tuple.Create("90b3a536-da16-4238-b781-cee864a9ec00", new Guid("90b3a536-da16-4238-b781-cee864a9ec00"));
 
+            yield return Tuple.Create("1", SampleEnum.Foo);
+            yield return Tuple.Create("Bar", SampleEnum.Bar);
+
             yield return Tuple.Create("123", (int?)123);
             yield return Tuple.Create("123", (uint?)123);
             yield return Tuple.Create("123", (long?)123);
@@ -58,6 +61,13 @@ namespace Utils.Tests.Strings
             yield return Tuple.Create("2018-05-18", (DateTimeOffset?) new DateTimeOffset(new DateTime(2018, 05, 18)));
 
             yield return Tuple.Create("90b3a536-da16-4238-b781-cee864a9ec00", (Guid?) new Guid("90b3a536-da16-4238-b781-cee864a9ec00"));
+
+            yield return Tuple.Create("1", (SampleEnum?) SampleEnum.Foo);
+            yield return Tuple.Create("Bar", (SampleEnum?) SampleEnum.Bar);
+
+            yield return Tuple.Create("foo", "foo");
+            yield return Tuple.Create("http://example.com", new Uri("http://example.com"));
+            yield return Tuple.Create("test/foo", new Uri("test/foo", UriKind.RelativeOrAbsolute));
         }
 
         [Test]

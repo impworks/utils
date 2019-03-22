@@ -31,6 +31,7 @@ The package provides the following methods, split into logical parts.
       "12345".TryParse<MyType>(MyParseFunc) // MyType
       "1,2,test,3".TryParseList<int>() // 1, 2, 3
       "1;2;test;3".TryParseList<int>(separator: ";") // 1, 2, 3
+      "1".TryParse<MyEnum?>(); // MyEnum or null
       ```
       Coalesce:
       ```csharp

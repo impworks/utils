@@ -1,4 +1,6 @@
-﻿namespace Utils.Tests.Linq
+﻿using System.Xml.Serialization;
+
+namespace Utils.Tests.Linq
 {
     /// <summary>
     /// Object for testing sorting.
@@ -18,6 +20,7 @@
 
         public int Value { get; set; }
 
+        [XmlElement(IsNullable = true)]
         public string Str { get; set; }
 
         public string Field;

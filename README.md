@@ -128,3 +128,10 @@ The package provides the following methods, split into logical parts.
       xml.ParseAttr<bool>("b") // true
       xml.TryParseAttr<bool?>("a") // null
       ```
+	  Less verbose serialization with a cleaner resulting XML:
+	  ```csharp
+	  var obj = new MyObject { Foo = "hello", Bar = (int?) null };
+	  XmlHelper.Serialize(obj) // <MyObject><Foo>Hello</Foo><Bar /></MyObject>
+	  XmlHelper.Serialize(obj, clean: false); // lots of junk: xml declaration, namespaces, nil's
+	  XmlHelper.Deserialize<MyObject>("...") // gets it back
+	  ```

@@ -118,6 +118,16 @@ The package provides the following methods, split into logical parts.
       UrlHelper.GetQuery(new { A = new [] { 1, 2, 3 } }) // "A=1&A=2&A=3"
       ```
 
+  * Tasks (.NET Standard 2.0 only)
+
+      Parallel awaiting (strong typing, up to 7 values):
+      ```csharp
+      var (i, str) = await TaskHelper.GetAll(
+          GetIntAsync(),
+          GetStringAsync()
+      );
+      ```
+
   * XML
 
       Attributes:

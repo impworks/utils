@@ -17,13 +17,13 @@ namespace Impworks.Utils.Strings
                 return (Func<string, T>) func;
 
             if (type.IsEnum)
-                return x => (T) Enum.Parse(type, x);
+                return x => (T) Enum.Parse(type, x, true);
 
             if (type.IsGenericTypeDefinition && type.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
                 var innerType = type.GetGenericArguments()[0];
                 if (innerType.IsEnum)
-                    return x => (T) Enum.Parse(innerType, x);
+                    return x => (T) Enum.Parse(innerType, x, true);
             }
 
             throw new Exception($"No parser function found for type '{type.Name}'.");

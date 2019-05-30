@@ -38,6 +38,7 @@ namespace Utils.Tests.Strings
 
             yield return Tuple.Create("1", SampleEnum.Foo);
             yield return Tuple.Create("Bar", SampleEnum.Bar);
+            yield return Tuple.Create("bar", SampleEnum.Bar);
 
             yield return Tuple.Create("123", (int?)123);
             yield return Tuple.Create("123", (uint?)123);
@@ -64,6 +65,7 @@ namespace Utils.Tests.Strings
 
             yield return Tuple.Create("1", (SampleEnum?) SampleEnum.Foo);
             yield return Tuple.Create("Bar", (SampleEnum?) SampleEnum.Bar);
+            yield return Tuple.Create("bar", (SampleEnum?)SampleEnum.Bar);
 
             yield return Tuple.Create("foo", "foo");
             yield return Tuple.Create("http://example.com", new Uri("http://example.com"));

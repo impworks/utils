@@ -19,7 +19,7 @@ namespace Utils.Tests.Strings
         [Test]
         public void Capitalize_converts_first_character_to_uppercase_in_russian()
         {
-            Assert.AreEqual("Привет", "Привет".Capitalize());
+            Assert.AreEqual("Привет", "привет".Capitalize());
         }
 
         [Test]

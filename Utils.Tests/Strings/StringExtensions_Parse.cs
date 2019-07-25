@@ -13,63 +13,63 @@ namespace Utils.Tests.Strings
     {
         private static IEnumerable<object> ParseTestCases()
         {
-            yield return Tuple.Create("123", (int)123);
-            yield return Tuple.Create("123", (uint)123);
-            yield return Tuple.Create("123", (long)123);
-            yield return Tuple.Create("123", (ulong)123);
-            yield return Tuple.Create("123", (byte)123);
-            yield return Tuple.Create("123", (sbyte)123);
-            yield return Tuple.Create("123", (decimal)123);
-            yield return Tuple.Create("1.2", (double)1.2);
-            yield return Tuple.Create("1.2", (float)1.2);
-            yield return Tuple.Create("1.23", (decimal)1.23);
+            yield return ("123", (int)123);
+            yield return ("123", (uint)123);
+            yield return ("123", (long)123);
+            yield return ("123", (ulong)123);
+            yield return ("123", (byte)123);
+            yield return ("123", (sbyte)123);
+            yield return ("123", (decimal)123);
+            yield return ("1.2", (double)1.2);
+            yield return ("1.2", (float)1.2);
+            yield return ("1.23", (decimal)1.23);
 
-            yield return Tuple.Create("true", true);
-            yield return Tuple.Create("false", false);
-            yield return Tuple.Create("TRUE", true);
-            yield return Tuple.Create("FALSE", false);
-            yield return Tuple.Create("x", 'x');
+            yield return ("true", true);
+            yield return ("false", false);
+            yield return ("TRUE", true);
+            yield return ("FALSE", false);
+            yield return ("x", 'x');
 
-            yield return Tuple.Create("2018-05-18", new DateTime(2018, 05, 18));
-            yield return Tuple.Create("2018-05-18 12:34:56", new DateTime(2018, 05, 18, 12, 34, 56));
-            yield return Tuple.Create("2018-05-18", new DateTimeOffset(new DateTime(2018, 05, 18)));
+            yield return ("2018-05-18", new DateTime(2018, 05, 18));
+            yield return ("2018-05-18 12:34:56", new DateTime(2018, 05, 18, 12, 34, 56));
+            yield return ("2018-05-18", new DateTimeOffset(new DateTime(2018, 05, 18)));
 
-            yield return Tuple.Create("90b3a536-da16-4238-b781-cee864a9ec00", new Guid("90b3a536-da16-4238-b781-cee864a9ec00"));
+            yield return ("90b3a536-da16-4238-b781-cee864a9ec00", new Guid("90b3a536-da16-4238-b781-cee864a9ec00"));
 
-            yield return Tuple.Create("1", SampleEnum.Foo);
-            yield return Tuple.Create("Bar", SampleEnum.Bar);
-            yield return Tuple.Create("bar", SampleEnum.Bar);
+            yield return ("1", SampleEnum.Foo);
+            yield return ("Bar", SampleEnum.Bar);
+            yield return ("bar", SampleEnum.Bar);
 
-            yield return Tuple.Create("123", (int?)123);
-            yield return Tuple.Create("123", (uint?)123);
-            yield return Tuple.Create("123", (long?)123);
-            yield return Tuple.Create("123", (ulong?)123);
-            yield return Tuple.Create("123", (byte?)123);
-            yield return Tuple.Create("123", (sbyte?)123);
-            yield return Tuple.Create("123", (decimal?)123);
-            yield return Tuple.Create("1.2", (double?)1.2);
-            yield return Tuple.Create("1.2", (float?)1.2);
-            yield return Tuple.Create("1.23", (decimal?)1.23);
+            yield return ("123", (int?)123);
+            yield return ("123", (uint?)123);
+            yield return ("123", (long?)123);
+            yield return ("123", (ulong?)123);
+            yield return ("123", (byte?)123);
+            yield return ("123", (sbyte?)123);
+            yield return ("123", (decimal?)123);
+            yield return ("1.2", (double?)1.2);
+            yield return ("1.2", (float?)1.2);
+            yield return ("1.23", (decimal?)1.23);
 
-            yield return Tuple.Create("true", (bool?)true);
-            yield return Tuple.Create("false", (bool?) false);
-            yield return Tuple.Create("TRUE", (bool?) true);
-            yield return Tuple.Create("FALSE", (bool?) false);
-            yield return Tuple.Create("x", (char?)'x');
+            yield return ("true", (bool?)true);
+            yield return ("false", (bool?) false);
+            yield return ("TRUE", (bool?) true);
+            yield return ("FALSE", (bool?) false);
+            yield return ("x", (char?)'x');
 
-            yield return Tuple.Create("2018-05-18", (DateTime?) new DateTime(2018, 05, 18));
-            yield return Tuple.Create("2018-05-18 12:34:56", (DateTime?) new DateTime(2018, 05, 18, 12, 34, 56));
-            yield return Tuple.Create("2018-05-18", (DateTimeOffset?) new DateTimeOffset(new DateTime(2018, 05, 18)));
+            yield return ("2018-05-18", (DateTime?) new DateTime(2018, 05, 18));
+            yield return ("2018-05-18 12:34:56", (DateTime?) new DateTime(2018, 05, 18, 12, 34, 56));
+            yield return ("2018-05-18", (DateTimeOffset?) new DateTimeOffset(new DateTime(2018, 05, 18)));
 
-            yield return Tuple.Create("90b3a536-da16-4238-b781-cee864a9ec00", (Guid?) new Guid("90b3a536-da16-4238-b781-cee864a9ec00"));
+            yield return ("90b3a536-da16-4238-b781-cee864a9ec00", (Guid?) new Guid("90b3a536-da16-4238-b781-cee864a9ec00"));
 
-            yield return Tuple.Create("1", (SampleEnum?) SampleEnum.Foo);
-            yield return Tuple.Create("Bar", (SampleEnum?) SampleEnum.Bar);
-            yield return Tuple.Create("bar", (SampleEnum?)SampleEnum.Bar);
+            yield return ("1", (SampleEnum?) SampleEnum.Foo);
+            yield return ("Bar", (SampleEnum?) SampleEnum.Bar);
+            yield return ("bar", (SampleEnum?) SampleEnum.Bar);
 
-            yield return Tuple.Create("foo", "foo");
-            yield return Tuple.Create("http://example.com", new Uri("http://example.com"));
-            yield return Tuple.Create("test/foo", new Uri("test/foo", UriKind.RelativeOrAbsolute));
+            yield return ("foo", "foo");
+            yield return ("http://example.com", new Uri("http://example.com"));
+            yield return ("test/foo", new Uri("test/foo", UriKind.RelativeOrAbsolute));
         }
 
         [Test]
@@ -77,7 +77,7 @@ namespace Utils.Tests.Strings
         public void Parse_parses_values(dynamic tuple)
         {
             // required for automatic generic type inferrence via dynamics
-            Check(tuple.Item1, tuple.Item2);
+            Check(tuple);
         }
 
         [Test]
@@ -154,9 +154,9 @@ namespace Utils.Tests.Strings
             Assert.AreEqual(new int[0], (null as string).TryParseList<int>());
         }
 
-        void Check<T>(string src, T result)
+        void Check<T>((string str, T obj) value)
         {
-            Assert.AreEqual(result, src.Parse<T>());
+            Assert.AreEqual(value.obj, value.str.Parse<T>());
         }
     }
 }

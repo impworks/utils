@@ -19,7 +19,7 @@ namespace Impworks.Utils.Strings
             if (type.IsEnum)
                 return x => (T) Enum.Parse(type, x, true);
 
-            if (type.IsGenericTypeDefinition && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
                 var innerType = type.GetGenericArguments()[0];
                 if (innerType.IsEnum)
@@ -47,6 +47,7 @@ namespace Impworks.Utils.Strings
             [typeof(decimal)] = (Func<string, decimal>) (x => decimal.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(DateTime)] = (Func<string, DateTime>) (x => DateTime.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(DateTimeOffset)] = (Func<string, DateTimeOffset>) (x => DateTime.Parse(x, CultureInfo.InvariantCulture)),
+            [typeof(TimeSpan)] = (Func<string, TimeSpan>)(x => TimeSpan.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(Guid)] = (Func<string, Guid>) (x => Guid.Parse(x)),
 
             [typeof(bool?)] = (Func<string, bool?>) (x => bool.Parse(x)),
@@ -62,6 +63,7 @@ namespace Impworks.Utils.Strings
             [typeof(decimal?)] = (Func<string, decimal?>) (x => decimal.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(DateTime?)] = (Func<string, DateTime?>) (x => DateTime.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(DateTimeOffset?)] = (Func<string, DateTimeOffset?>) (x => DateTime.Parse(x, CultureInfo.InvariantCulture)),
+            [typeof(TimeSpan?)] = (Func<string, TimeSpan?>)(x => TimeSpan.Parse(x, CultureInfo.InvariantCulture)),
             [typeof(Guid?)] = (Func<string, Guid?>) (x => Guid.Parse(x)),
 
             [typeof(string)] = (Func<string, string>) (x => x),

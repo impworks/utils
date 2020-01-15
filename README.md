@@ -46,6 +46,10 @@ The package provides the following methods, split into logical parts.
       ```csharp
       StringHelper.Transliterate("Привет мир", "_") // "Privet_mir"
       ```
+	  `string.Join` as extension:
+	  ```csharp
+	  new [] { 1, 2, 3 }.JoinString(", ") // "1, 2, 3"
+	  ```
 
   * Enumerable
 
@@ -68,6 +72,14 @@ The package provides the following methods, split into logical parts.
       new [] { treeRoot }.SelectRecursively(x => x.Children) // selects all children in a flat list
       new [] { treeRoot }.ApplyRecursively(x => x.Children, x => x.Value = 1) // sets Value = 1 on all children
       ```
+
+  * Expressions
+
+      Expression combinations (useful for LINQ):
+	  ```csharp
+	  ExprHelper.And<Foo>(x => x.A == 1, x.B == 2) // x => x.A == 1 && x.B == 2
+	  ExprHelper.Or<Foo>(x => x.A == 1, x.B == 2) // x => x.A == 1 || x.B == 2
+	  ```
 
   * Enums
 
@@ -92,7 +104,7 @@ The package provides the following methods, split into logical parts.
       Random picks:
       ```csharp
       RandomHelper.Pick(1, 2, 3, 4, 5) // 4
-      RandomHelper.PickWeighted(new [] { "a", "test", "blablabla" }, x => x.Length ) // "blablabla"
+      RandomHelper.PickWeighted(new [] { "a", "test", "blablabla" }, x => x.Length) // "blablabla"
       ```
 
   * Dictionary

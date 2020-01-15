@@ -24,5 +24,10 @@ namespace Utils.Tests.Linq
         public string Str { get; set; }
 
         public string Field;
+
+        public override string ToString()
+        {
+            return $"SampleObj {{ Value = {Value}, Str = {Str}, Field = {Field} }}";
+        }
     }
 }

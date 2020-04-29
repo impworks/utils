@@ -46,10 +46,10 @@ The package provides the following methods, split into logical parts.
       ```csharp
       StringHelper.Transliterate("Привет мир", "_") // "Privet_mir"
       ```
-	  `string.Join` as extension:
-	  ```csharp
-	  new [] { 1, 2, 3 }.JoinString(", ") // "1, 2, 3"
-	  ```
+      `string.Join` as extension:
+      ```csharp
+      new [] { 1, 2, 3 }.JoinString(", ") // "1, 2, 3"
+      ```
 
   * Enumerable
 
@@ -76,10 +76,14 @@ The package provides the following methods, split into logical parts.
   * Expressions
 
       Expression combinations (useful for LINQ):
-	  ```csharp
-	  ExprHelper.And<Foo>(x => x.A == 1, x.B == 2) // x => x.A == 1 && x.B == 2
-	  ExprHelper.Or<Foo>(x => x.A == 1, x.B == 2) // x => x.A == 1 || x.B == 2
-	  ```
+      ```csharp
+      ExprHelper.And<Foo>(x => x.A == 1, x => x.B == 2) // x => x.A == 1 && x.B == 2
+      ExprHelper.Or<Foo>(x => x.A == 1, x => x.B == 2) // x => x.A == 1 || x.B == 2
+      ```
+      Partial application (for `Func` and `Action` up to 8 arguments):
+      ```csharp
+      ExprHelper.Apply((int x, int y) => x + y, 10) // Expr for (int x) => x + 10
+      ```
 
   * Enums
 
@@ -150,10 +154,10 @@ The package provides the following methods, split into logical parts.
       xml.ParseAttr<bool>("b") // true
       xml.TryParseAttr<bool?>("a") // null
       ```
-	  Less verbose serialization with a cleaner resulting XML:
-	  ```csharp
-	  var obj = new MyObject { Foo = "hello", Bar = (int?) null };
-	  XmlHelper.Serialize(obj) // <MyObject><Foo>Hello</Foo><Bar /></MyObject>
-	  XmlHelper.Serialize(obj, clean: false); // lots of junk: xml declaration, namespaces, nil's
-	  XmlHelper.Deserialize<MyObject>("...") // gets it back
-	  ```
+      Less verbose serialization with a cleaner resulting XML:
+      ```csharp
+      var obj = new MyObject { Foo = "hello", Bar = (int?) null };
+      XmlHelper.Serialize(obj) // <MyObject><Foo>Hello</Foo><Bar /></MyObject>
+      XmlHelper.Serialize(obj, clean: false); // lots of junk: xml declaration, namespaces, nil's
+      XmlHelper.Deserialize<MyObject>("...") // gets it back
+       ```

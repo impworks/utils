@@ -8,7 +8,7 @@ namespace Impworks.Utils.Linq
     /// <summary>
     /// Helper methods for working with expressions.
     /// </summary>
-    public static class ExprHelper
+    public static partial class ExprHelper
     {
         #region Disjunction
 
@@ -71,7 +71,7 @@ namespace Impworks.Utils.Linq
             var curr = null as Expression;
             foreach (var pred in predicates)
             {
-                var fixedPred = new ParameterReplacerVisitor(pred.Parameters.Single(), arg).VisitAndConvert(pred, nameof(Combine));
+                var fixedPred = new ReplaceParameterByParameterVisitor(pred.Parameters.Single(), arg).VisitAndConvert(pred, nameof(Combine));
                 curr = curr == null ? fixedPred.Body : combinator(curr, fixedPred.Body);
             }
 
@@ -80,25 +80,7 @@ namespace Impworks.Utils.Linq
 
             return Expression.Lambda<Func<T, bool>>(curr, arg);
         }
-
-        /// <summary>
-        /// Helper visitor class for replacing a parameter with a specified expression.
-        /// </summary>
-        private class ParameterReplacerVisitor : ExpressionVisitor
-        {
-            public ParameterReplacerVisitor(ParameterExpression source, ParameterExpression target)
-            {
-                _source = source ?? throw new ArgumentNullException(nameof(source));
-                _target = target ?? throw new ArgumentNullException(nameof(target));
-            }
-
-            private readonly ParameterExpression _source;
-            private readonly ParameterExpression _target;
-
-            protected override Expression VisitLambda<T>(Expression<T> node) => Expression.Lambda<T>(Visit(node.Body), _target);
-            protected override Expression VisitParameter(ParameterExpression node) => node == _source ? _target : base.VisitParameter(node);
-        }
-
+        
         #endregion
     }
 }

@@ -78,5 +78,14 @@ namespace Utils.Tests.Format
         {
             Assert.AreEqual(new[] {SampleEnum.Hello, SampleEnum.World}, EnumHelper.GetEnumValues<SampleEnum>());
         }
+
+        [Test]
+        [TestCase("hello")]
+        [TestCase("HELLO")]
+        [TestCase("wORlD")]
+        public void IsDefined_can_ignore_case(string value)
+        {
+            Assert.IsTrue(EnumHelper.IsDefined<SampleEnum>(value, true));
+        }
     }
 }

@@ -96,6 +96,10 @@ The package provides the following methods, split into logical parts.
       }
       EnumHelper.GetEnumDescriptions<Language>() // { Language.CSharp = "C#", Language.CPlusPlus = "C++" }
       ```
+      Case-insensitive IsDefined:
+      ```csharp
+      EnumHelper.IsDefined<Language>("csharp") // true
+      ```
 
   * Random
 

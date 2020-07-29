@@ -69,6 +69,16 @@ namespace Impworks.Utils.Format
                        .ToList();
         }
 
+        /// <summary>
+        /// Checks if the element is defined, possibly ignoring the case.
+        /// </summary>
+        public static bool IsDefined<T>(string name, bool ignoreCase = false)
+        {
+            return ignoreCase
+                ? Enum.GetNames(typeof(T)).Any(x => string.Compare(x, name, StringComparison.InvariantCultureIgnoreCase) == 0)
+                : Enum.IsDefined(typeof(T), name);
+        }
+
         #endregion
 
         #region Weakly typed

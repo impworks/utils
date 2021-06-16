@@ -112,5 +112,16 @@ namespace Utils.Tests.Xml
         }
 
         #endregion
+
+        #region Untyped serialization
+
+        [Test]
+        public void Serialize_uses_exact_object_type()
+        {
+            var xml = XmlHelper.Serialize((object) GetObj());
+            Assert.IsTrue(xml.StartsWith("<SampleObject"));
+        }
+
+        #endregion
     }
 }

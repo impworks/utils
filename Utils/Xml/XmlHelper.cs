@@ -50,13 +50,13 @@ namespace Impworks.Utils.Xml
         /// <param name="indent">Flag indicating that the XML must be indented.</param>
         /// <param name="enc">Encoding to use. Defaults to UTF-8.</param>
         /// <returns>Serialized object.</returns>
-        public static string Serialize<T>(T obj, XmlSerializer serializer = null, bool clean = true, bool indent = true, Encoding enc = null)
+        public static string Serialize(object obj, XmlSerializer serializer = null, bool clean = true, bool indent = true, Encoding enc = null)
         {
             if (obj == null)
                 throw new ArgumentNullException(nameof(obj));
 
             if (serializer == null)
-                serializer = GetSerializer(typeof(T));
+                serializer = GetSerializer(obj.GetType());
 
             var options = new XmlWriterSettings
             {
@@ -88,9 +88,12 @@ namespace Impworks.Utils.Xml
         /// <param name="indent">Flag indicating that the XML must be indented.</param>
         /// <param name="enc">Encoding to use. Defaults to UTF-8.</param>
         /// <returns>Serialized object.</returns>
-        public static string Serialize<T>(T obj, string rootName, bool clean = true, bool indent = true, Encoding enc = null)
+        public static string Serialize(object obj, string rootName, bool clean = true, bool indent = true, Encoding enc = null)
         {
-            var ser = GetSerializer(typeof(T), rootName);
+            if (obj == null)
+                throw new ArgumentNullException(nameof(obj));
+
+            var ser = GetSerializer(obj.GetType(), rootName);
             return Serialize(obj, ser, clean, indent, enc);
         }
 
@@ -144,10 +147,9 @@ namespace Impworks.Utils.Xml
 
             XmlSerializer Create()
             {
-                if(string.IsNullOrEmpty(name))
-                    return new XmlSerializer(type);
-
-                return new XmlSerializer(type, new XmlRootAttribute(name));
+                return string.IsNullOrEmpty(name)
+                    ? new XmlSerializer(type)
+                    : new XmlSerializer(type, new XmlRootAttribute(name));
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Impworks.Utils.Linq;
 using NUnit.Framework;
 
@@ -29,21 +30,32 @@ namespace Utils.Tests.Linq
         }
 
         [Test]
-        public void PartitionByCount_partitions_by_number_of_batches()
+        public void PartitionByCount_return_exact_number_of_batches()
         {
-            var src = new[] {1, 2, 3, 4, 5, 6};
-            var expected = new[] {new[] {1, 2, 3}, new[] {4, 5, 6}};
+            for (var i = 1; i < 100; i++)
+            {
+                var seq = Enumerable.Range(1, 100).ToList();
+                var partitions = seq.PartitionByCount(i);
 
-            Assert.AreEqual(expected, src.PartitionByCount(2));
+                Assert.AreEqual(seq, partitions.SelectMany(x => x), "Partitioning missed values");
+                Assert.AreEqual(i, partitions.Count, "Partitioning missed count");
+            }
         }
 
         [Test]
-        public void PartitionByCount_may_return_smaller_last_partition()
+        public void PartitionByCount_returns_less_batches_if_not_enough_elements()
         {
-            var src = new[] {1, 2, 3, 4, 5};
-            var expected = new[] {new[] {1, 2, 3}, new[] {4, 5}};
+            for (var i = 1; i < 100; i++)
+            {
+                for (var j = 1; j < 10; j++)
+                {
+                    var seq = Enumerable.Range(1, i).ToList();
+                    var partitions = seq.PartitionByCount(i + j);
 
-            Assert.AreEqual(expected, src.PartitionByCount(2));
+                    Assert.AreEqual(seq, partitions.SelectMany(x => x), "Partitioning missed values");
+                    Assert.AreEqual(i, partitions.Count, "Partitioning missed count");
+                }
+            }
         }
 
         [Test]

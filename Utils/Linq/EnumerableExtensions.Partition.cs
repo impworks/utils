@@ -62,29 +62,31 @@ namespace Impworks.Utils.Linq
         /// <param name="partsCount">Desired number of partitions.</param>
         public static List<List<T>> PartitionByCount<T>(this IEnumerable<T> source, int partsCount)
         {
-            if(source == null)
+            if (source == null)
                 throw new ArgumentNullException(nameof(source));
 
-            if(partsCount < 1)
+            if (partsCount < 1)
                 throw new ArgumentException("Size of the chunk must be at least 1!");
 
             var sourceList = source.ToList();
-            var sublistLength = (int) Math.Ceiling((double)sourceList.Count/partsCount);
+            var sublistLength = (double)sourceList.Count / partsCount;
 
-            var result = new List<List<T>>();
-            var partition = new List<T>(sublistLength);
+            var result = new List<List<T>>(partsCount);
+            var partition = new List<T>();
+            var accum = 0.0;
 
             foreach (var item in sourceList)
             {
                 partition.Add(item);
-                if (partition.Count == sublistLength)
+                if (partition.Count + accum >= sublistLength)
                 {
                     result.Add(partition);
-                    partition = new List<T>(sublistLength);
+                    accum = partition.Count + accum - sublistLength;
+                    partition = new List<T>();
                 }
             }
 
-            if(partition.Count > 0)
+            if (partition.Count > 0)
                 result.Add(partition);
 
             return result;

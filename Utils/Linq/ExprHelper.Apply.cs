@@ -134,7 +134,7 @@ namespace Impworks.Utils.Linq
                 _source = source ?? throw new ArgumentNullException(nameof(source));
                 _target = target ?? throw new ArgumentNullException(nameof(target));
 
-                if (_target is ConstantExpression cexpr && cexpr.Value == null)
+                if (_target is ConstantExpression {Value: null})
                     _target = Expression.Convert(_target, _source.Type);
             }
 

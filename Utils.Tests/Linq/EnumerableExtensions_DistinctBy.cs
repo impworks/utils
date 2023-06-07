@@ -9,6 +9,7 @@ namespace Utils.Tests.Linq
     [TestFixture]
     public class EnumerableExtensions_DistinctBy
     {
+#if !NET6_0_OR_GREATER
         [Test]
         public void DistinctBy_filters_by_predicate()
         {
@@ -17,5 +18,6 @@ namespace Utils.Tests.Linq
 
             Assert.AreEqual(new [] { 1, 2 }, result);
         }
+#endif
     }
 }

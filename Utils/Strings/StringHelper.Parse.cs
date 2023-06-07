@@ -14,16 +14,16 @@ namespace Impworks.Utils.Strings
         {
             var type = typeof(T);
             if (ParseFuncs.TryGetValue(type, out var func))
-                return (Func<string, T>) func;
+                return (Func<string, T>)func;
 
             if (type.IsEnum)
-                return x => (T) Enum.Parse(type, x, true);
+                return x => (T)Enum.Parse(type, x, true);
 
             if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
             {
                 var innerType = type.GetGenericArguments()[0];
                 if (innerType.IsEnum)
-                    return x => (T) Enum.Parse(innerType, x, true);
+                    return x => (T)Enum.Parse(innerType, x, true);
             }
 
             throw new Exception($"No parser function found for type '{type.Name}'.");
@@ -68,7 +68,17 @@ namespace Impworks.Utils.Strings
 
             [typeof(string)] = (Func<string, string>) (x => x),
             [typeof(XElement)] = (Func<string, XElement>)(x => XElement.Parse(x)),
-            [typeof(Uri)] = (Func<string, Uri>) (x => new Uri(x, UriKind.RelativeOrAbsolute))
+            [typeof(Uri)] = (Func<string, Uri>) (x => new Uri(x, UriKind.RelativeOrAbsolute)),
+
+#if NET6_0_OR_GREATER
+            [typeof(DateOnly)] = (Func<string, DateOnly>) (x => DateOnly.Parse(x, CultureInfo.InvariantCulture)),
+            [typeof(DateOnly?)] = (Func<string, DateOnly?>) (x => DateOnly.Parse(x, CultureInfo.InvariantCulture)),
+            [typeof(TimeOnly)] = (Func<string, TimeOnly>) (x => TimeOnly.Parse(x, CultureInfo.InvariantCulture)),
+            [typeof(TimeOnly?)] = (Func<string, TimeOnly?>) (x => TimeOnly.Parse(x, CultureInfo.InvariantCulture)),
+
+            [typeof(Half)] = (Func<string, Half>) (x => Half.Parse(x, CultureInfo.InvariantCulture)),
+            [typeof(Half?)] = (Func<string, Half?>) (x => Half.Parse(x, CultureInfo.InvariantCulture)),
+#endif
         };
     }
 }

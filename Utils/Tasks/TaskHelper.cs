@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Impworks.Utils.Tasks
 {
-#if NETSTANDARD
+#if NETSTANDARD || NET6_0_OR_GREATER
     /// <summary>
     /// Helper methods for working with tasks.
     /// </summary>

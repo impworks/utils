@@ -16,6 +16,7 @@ namespace Impworks.Utils.Linq
             return string.Join(separator, source);
         }
 
+#if !NET6_0_OR_GREATER
         /// <summary>
         /// Excludes duplicate values from the list (specified by an expression).
         /// </summary>
@@ -26,14 +27,7 @@ namespace Impworks.Utils.Linq
             var hashSet = new HashSet<TValue>();
             return sequence.Where(x => hashSet.Add(idGetter(x)));
         }
-
-        /// <summary>
-        /// Saves the sequence into a hashset.
-        /// </summary>
-        public static HashSet<T> ToHashSet<T>(this IEnumerable<T> sequence)
-        {
-            return new HashSet<T>(sequence);
-        }
+#endif
 
         /// <summary>
         /// Adds a list of items into the collection.

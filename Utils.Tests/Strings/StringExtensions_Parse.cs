@@ -70,13 +70,22 @@ namespace Utils.Tests.Strings
             yield return ("foo", "foo");
             yield return ("http://example.com", new Uri("http://example.com"));
             yield return ("test/foo", new Uri("test/foo", UriKind.RelativeOrAbsolute));
+
+#if NET6_0_OR_GREATER
+            yield return ("123", (Half)123);
+            yield return ("123", (Half?)123);
+            yield return ("2018-05-18", new DateOnly(2018, 05, 18));
+            yield return ("2018-05-18", (DateOnly?) new DateOnly(2018, 05, 18));
+            yield return ("16:47:23", new TimeOnly(16, 47, 23));
+            yield return ("16:47:23", (TimeOnly?) new TimeOnly(16, 47, 23));
+#endif
         }
 
         [Test]
         [TestCaseSource(typeof(StringExtensions_Parse), nameof(ParseTestCases))]
         public void Parse_parses_values(dynamic tuple)
         {
-            // required for automatic generic type inferrence via dynamics
+            // required for automatic generic type inference via dynamics
             Check(tuple);
         }
 

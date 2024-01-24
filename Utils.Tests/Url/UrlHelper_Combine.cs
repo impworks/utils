@@ -85,7 +85,7 @@ namespace Utils.Tests.Url
         [Test]
         public void Combine_throws_ArgumentNullException_on_null_parts()
         {
-            Assert.Throws<ArgumentNullException>(() => UrlHelper.Combine("http://123", (string[]) null));
+            Assert.Throws<ArgumentNullException>(() => UrlHelper.Combine("http://123", null));
         }
     }
 }

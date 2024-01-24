@@ -13,14 +13,14 @@ namespace Utils.Tests.Strings
     {
         private static IEnumerable<object> ParseTestCases()
         {
-            yield return ("123", (int)123);
+            yield return ("123", 123);
             yield return ("123", (uint)123);
             yield return ("123", (long)123);
             yield return ("123", (ulong)123);
             yield return ("123", (byte)123);
             yield return ("123", (sbyte)123);
             yield return ("123", (decimal)123);
-            yield return ("1.2", (double)1.2);
+            yield return ("1.2", 1.2);
             yield return ("1.2", (float)1.2);
             yield return ("1.23", (decimal)1.23);
 

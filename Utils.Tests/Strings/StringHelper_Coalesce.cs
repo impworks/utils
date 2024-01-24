@@ -12,19 +12,19 @@ namespace Utils.Tests.Strings
         [Test]
         public void Coalesce_skips_null_strings()
         {
-            Assert.AreEqual("test", StringHelper.Coalesce(null, null, "test"));
+            Assert.That(StringHelper.Coalesce(null, null, "test"), Is.EqualTo("test"));
         }
 
         [Test]
         public void Coalesce_skips_empty_strings()
         {
-            Assert.AreEqual("test", StringHelper.Coalesce("", "", "test"));
+            Assert.That(StringHelper.Coalesce("", "", "test"), Is.EqualTo("test"));
         }
 
         [Test]
         public void Coalesce_returns_first_non_null()
         {
-            Assert.AreEqual("test", StringHelper.Coalesce("test", "hello"));
+            Assert.That(StringHelper.Coalesce("test", "hello"), Is.EqualTo("test"));
         }
 
         [Test]

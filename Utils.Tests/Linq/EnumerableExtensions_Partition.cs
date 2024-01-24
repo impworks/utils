@@ -17,7 +17,7 @@ namespace Utils.Tests.Linq
             var src = new[] {1, 2, 3, 4, 5, 6};
             var expected = new[] {new[] {1, 2}, new[] {3, 4}, new[] {5, 6}};
 
-            Assert.AreEqual(expected, src.PartitionBySize(2));
+            Assert.That(src.PartitionBySize(2), Is.EqualTo(expected));
         }
 
         [Test]
@@ -26,7 +26,7 @@ namespace Utils.Tests.Linq
             var src = new[] {1, 2, 3, 4, 5};
             var expected = new[] {new[] {1, 2}, new[] {3, 4}, new[] {5}};
 
-            Assert.AreEqual(expected, src.PartitionBySize(2));
+            Assert.That(src.PartitionBySize(2), Is.EqualTo(expected));
         }
 
         [Test]
@@ -37,8 +37,8 @@ namespace Utils.Tests.Linq
                 var seq = Enumerable.Range(1, 100).ToList();
                 var partitions = seq.PartitionByCount(i);
 
-                Assert.AreEqual(seq, partitions.SelectMany(x => x), "Partitioning missed values");
-                Assert.AreEqual(i, partitions.Count, "Partitioning missed count");
+                Assert.That(partitions.SelectMany(x => x), Is.EqualTo(seq), "Partitioning missed values");
+                Assert.That(partitions.Count, Is.EqualTo(i), "Partitioning missed count");
             }
         }
 
@@ -52,8 +52,8 @@ namespace Utils.Tests.Linq
                     var seq = Enumerable.Range(1, i).ToList();
                     var partitions = seq.PartitionByCount(i + j);
 
-                    Assert.AreEqual(seq, partitions.SelectMany(x => x), "Partitioning missed values");
-                    Assert.AreEqual(i, partitions.Count, "Partitioning missed count");
+                    Assert.That(partitions.SelectMany(x => x), Is.EqualTo(seq), "Partitioning missed values");
+                    Assert.That(partitions.Count, Is.EqualTo(i), "Partitioning missed count");
                 }
             }
         }

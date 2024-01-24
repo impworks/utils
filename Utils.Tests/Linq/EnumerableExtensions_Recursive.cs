@@ -40,7 +40,7 @@ namespace Utils.Tests.Linq
             var tree = GetTree();
             var result = tree.SelectRecursively(x => x.Children).Select(x => x.Value);
 
-            Assert.AreEqual(new [] { 1, 2, 3, 4, 5, 6, 7, 8 }, result);
+            Assert.That(result, Is.EqualTo(new [] { 1, 2, 3, 4, 5, 6, 7, 8 }));
         }
         
         [Test]
@@ -50,7 +50,7 @@ namespace Utils.Tests.Linq
             var result = new List<int>();
             tree.ApplyRecursively(x => x.Children, x => result.Add(x.Value));
 
-            Assert.AreEqual(new [] { 1, 2, 3, 4, 5, 6, 7, 8 }, result);
+            Assert.That(result, Is.EqualTo(new [] { 1, 2, 3, 4, 5, 6, 7, 8 }));
         }
     }
 }

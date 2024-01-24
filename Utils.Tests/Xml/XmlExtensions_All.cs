@@ -23,7 +23,7 @@ namespace Utils.Tests.Xml
         [Test]
         public void Attr_returns_attribute_value()
         {
-            Assert.AreEqual("123", GetXml().Attr("B"));
+            Assert.That(GetXml().Attr("B"), Is.EqualTo("123"));
         }
 
         [Test]
@@ -47,13 +47,13 @@ namespace Utils.Tests.Xml
         [Test]
         public void ParseAttr_returns_parsed_attribute_value()
         {
-            Assert.AreEqual(123, GetXml().ParseAttr<int>("B"));
+            Assert.That(GetXml().ParseAttr<int>("B"), Is.EqualTo(123));
         }
         
         [Test]
         public void ParseAttr_uses_parseFunc()
         {
-            Assert.AreEqual(123, GetXml().ParseAttr("B", x => int.Parse(x.TrimStart('@'))));
+            Assert.That(GetXml().ParseAttr("B", x => int.Parse(x.TrimStart('@'))), Is.EqualTo(123));
         }
 
         [Test]
@@ -77,7 +77,7 @@ namespace Utils.Tests.Xml
         [Test]
         public void TryParseAttr_returns_parsed_attribute_value()
         {
-            Assert.AreEqual(123, GetXml().TryParseAttr<int>("B"));
+            Assert.That(GetXml().TryParseAttr<int>("B"), Is.EqualTo(123));
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace Utils.Tests.Xml
         [Test]
         public void TryParseAttr_uses_parseFunc()
         {
-            Assert.AreEqual(123, GetXml().TryParseAttr("B", x => int.Parse(x.TrimStart('@'))));
+            Assert.That(GetXml().TryParseAttr("B", x => int.Parse(x.TrimStart('@'))), Is.EqualTo(123));
         }
 
         [Test]

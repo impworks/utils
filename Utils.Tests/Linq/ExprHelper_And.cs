@@ -29,7 +29,7 @@ namespace Utils.Tests.Linq
                 x => x.Field == null || x.Field.Length > 2
             ).Compile();
 
-            Assert.AreEqual(arg.result, pred(arg.obj));
+            Assert.That(pred(arg.obj), Is.EqualTo(arg.result));
         }
     }
 }

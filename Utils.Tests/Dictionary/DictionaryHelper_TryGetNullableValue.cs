@@ -19,7 +19,7 @@ namespace Utils.Tests.Dictionary
                 ["a"] = 2
             };
 
-            Assert.AreEqual(2, dict.TryGetNullableValue("a"));
+            Assert.That(dict.TryGetNullableValue("a"), Is.EqualTo(2));
         }
 
         [Test]
@@ -31,7 +31,7 @@ namespace Utils.Tests.Dictionary
                 ["a"] = 2
             };
 
-            Assert.AreEqual(null, dict.TryGetNullableValue("bla"));
+            Assert.That(dict.TryGetNullableValue("bla"), Is.Null);
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace Utils.Tests.Dictionary
                 ["a"] = 2
             };
 
-            Assert.AreEqual(null, dict.TryGetNullableValue(null as string));
+            Assert.That(dict.TryGetNullableValue(null as string), Is.Null);
         }
 
         [Test]
@@ -55,7 +55,7 @@ namespace Utils.Tests.Dictionary
                 ["a"] = 2
             };
 
-            Assert.AreEqual(null, dict.TryGetNullableValue(null as string[]));
+            Assert.That(dict.TryGetNullableValue(null as string[]), Is.Null);
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace Utils.Tests.Dictionary
                 [2] = 37
             };
 
-            Assert.AreEqual(37, dict.TryGetNullableValue(3, 2, 1));
+            Assert.That(dict.TryGetNullableValue(3, 2, 1), Is.EqualTo(37));
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace Utils.Tests.Dictionary
                 [2] = 2
             };
 
-            Assert.AreEqual(null, dict.TryGetNullableValue(4, 5));
+            Assert.That(dict.TryGetNullableValue(4, 5), Is.Null);
         }
 
         [Test]
@@ -91,7 +91,7 @@ namespace Utils.Tests.Dictionary
                 ["b"] = 2
             };
 
-            Assert.AreEqual(2, dict.TryGetNullableValue(null, "b"));
+            Assert.That(dict.TryGetNullableValue(null, "b"), Is.EqualTo(2));
         }
     }
 }

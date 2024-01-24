@@ -12,13 +12,13 @@ namespace Utils.Tests.Format
         [Test]
         public void ToInvariantString_formats_float()
         {
-            Assert.AreEqual("1.337", 1.337f.ToInvariantString());
+            Assert.That(1.337f.ToInvariantString(), Is.EqualTo("1.337"));
         }
 
         [Test]
         public void ToInvariantString_formats_double()
         {
-            Assert.AreEqual("1.337", 1.337.ToInvariantString());
+            Assert.That(1.337.ToInvariantString(), Is.EqualTo("1.337"));
         }
     }
 }

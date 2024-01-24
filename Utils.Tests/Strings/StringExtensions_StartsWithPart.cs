@@ -52,7 +52,7 @@ namespace Utils.Tests.Strings
         [TestCase("a", null, false)]
         public void StartsWithPath_handles_nulls(string left, string right, bool result)
         {
-            Assert.AreEqual(left.StartsWithPart(right, 5), result);
+            Assert.That(result, Is.EqualTo(left.StartsWithPart(right, 5)));
         }
 
         [Test]

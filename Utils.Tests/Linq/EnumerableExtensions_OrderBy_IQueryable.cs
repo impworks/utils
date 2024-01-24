@@ -29,7 +29,7 @@ namespace Utils.Tests.Linq
 
             var result = objs.OrderBy(x => x.Value, false).Select(x => x.Str);
 
-            Assert.AreEqual(new[] {"world", "abra", "hello"}, result);
+            Assert.That(result, Is.EqualTo(new[] {"world", "abra", "hello"}));
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace Utils.Tests.Linq
 
             var result = objs.OrderBy(x => x.Value, true).Select(x => x.Str);
 
-            Assert.AreEqual(new[] {"hello", "abra", "world"}, result);
+            Assert.That(result, Is.EqualTo(new[] {"hello", "abra", "world"}));
         }
 
         [Test]
@@ -50,7 +50,7 @@ namespace Utils.Tests.Linq
             var result = objs.OrderBy(nameof(SampleObject.Value), false)
                              .Select(x => x.Str);
 
-            Assert.AreEqual(new[] {"world", "abra", "hello"}, result);
+            Assert.That(result, Is.EqualTo(new[] {"world", "abra", "hello"}));
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace Utils.Tests.Linq
                              .OrderBy(nameof(SampleObject.Field), false)
                              .Select(x => x.Value);
 
-            Assert.AreEqual(new[] {3, 1, 2}, result);
+            Assert.That(result, Is.EqualTo(new[] {3, 1, 2}));
         }
 
         [Test]
@@ -78,7 +78,7 @@ namespace Utils.Tests.Linq
             var result = objs.OrderBy(nameof(SampleObject.Value), true)
                              .Select(x => x.Str);
 
-            Assert.AreEqual(new[] {"hello", "abra", "world"}, result);
+            Assert.That(result, Is.EqualTo(new[] {"hello", "abra", "world"}));
         }
 
         [Test]
@@ -96,7 +96,7 @@ namespace Utils.Tests.Linq
                              .ThenBy(x => x.Value, false)
                              .Select(x => x.Str);
 
-            Assert.AreEqual(new[] {"abra", "world", "hello"}, result);
+            Assert.That(result, Is.EqualTo(new[] {"abra", "world", "hello"}));
         }
 
         [Test]
@@ -108,7 +108,7 @@ namespace Utils.Tests.Linq
                              .ThenBy(x => x.Value, true)
                              .Select(x => x.Str);
 
-            Assert.AreEqual(new[] {"abra", "hello", "world"}, result);
+            Assert.That(result, Is.EqualTo(new[] {"abra", "hello", "world"}));
         }
 
         [Test]
@@ -120,7 +120,7 @@ namespace Utils.Tests.Linq
                              .ThenBy("Str", false)
                              .Select(x => x.Str);
 
-            Assert.AreEqual(new[] {"hello", "world", "abra"}, result);
+            Assert.That(result, Is.EqualTo(new[] {"hello", "world", "abra"}));
         }
 
         [Test]
@@ -132,7 +132,7 @@ namespace Utils.Tests.Linq
                              .ThenBy("Str", true)
                              .Select(x => x.Str);
 
-            Assert.AreEqual(new[] {"world", "hello", "abra"}, result);
+            Assert.That(result, Is.EqualTo(new[] {"world", "hello", "abra"}));
         }
     }
 }

@@ -24,14 +24,14 @@ namespace Utils.Tests.Strings
         public void Transliterate_converts_uppercase_chars()
         {
             var src = "ПРИВЕТ";
-            Assert.AreEqual("PRIVET", StringHelper.Transliterate(src));
+            Assert.That(StringHelper.Transliterate(src), Is.EqualTo("PRIVET"));
         }
 
         [Test]
         public void Transliterate_converts_long_uppercase_chars_by_capitalization()
         {
             var src = "Шалом";
-            Assert.AreEqual("Shalom", StringHelper.Transliterate(src));
+            Assert.That(StringHelper.Transliterate(src), Is.EqualTo("Shalom"));
         }
 
         [Test]
@@ -39,7 +39,7 @@ namespace Utils.Tests.Strings
         {
             var src = "abcdefghijklmnopqrstuvwxyz";
 
-            Assert.AreEqual(src, StringHelper.Transliterate(src));
+            Assert.That(StringHelper.Transliterate(src), Is.EqualTo(src));
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace Utils.Tests.Strings
         {
             var src = "1234567890-_.";
 
-            Assert.AreEqual(src, StringHelper.Transliterate(src));
+            Assert.That(StringHelper.Transliterate(src), Is.EqualTo(src));
         }
 
         [Test]
@@ -55,7 +55,7 @@ namespace Utils.Tests.Strings
         {
             var src = "hello, world!";
 
-            Assert.AreEqual("hello-world", StringHelper.Transliterate(src));
+            Assert.That(StringHelper.Transliterate(src), Is.EqualTo("hello-world"));
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace Utils.Tests.Strings
         {
             var src = "hello, world";
 
-            Assert.AreEqual("hello--world", StringHelper.Transliterate(src, cleanOutput: false));
+            Assert.That(StringHelper.Transliterate(src, cleanOutput: false), Is.EqualTo("hello--world"));
         }
 
         [Test]
@@ -71,7 +71,7 @@ namespace Utils.Tests.Strings
         {
             var src = "hello!";
 
-            Assert.AreEqual("hello-", StringHelper.Transliterate(src, cleanOutput: false));
+            Assert.That(StringHelper.Transliterate(src, cleanOutput: false), Is.EqualTo("hello-"));
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace Utils.Tests.Strings
         {
             var src = "~hello";
 
-            Assert.AreEqual("-hello", StringHelper.Transliterate(src, cleanOutput: false));
+            Assert.That(StringHelper.Transliterate(src, cleanOutput: false), Is.EqualTo("-hello"));
         }
 
         [Test]
@@ -87,7 +87,7 @@ namespace Utils.Tests.Strings
         {
             var src = "hello there, world";
 
-            Assert.AreEqual("hello@@there@@world", StringHelper.Transliterate(src, fallbackChar: "@@"));
+            Assert.That(StringHelper.Transliterate(src, fallbackChar: "@@"), Is.EqualTo("hello@@there@@world"));
         }
 
         [Test]
@@ -95,7 +95,7 @@ namespace Utils.Tests.Strings
         {
             var src = "hello there, world";
 
-            Assert.AreEqual("hello there- world", StringHelper.Transliterate(src, safeRegex: @"[a-z\s]"));
+            Assert.That(StringHelper.Transliterate(src, safeRegex: @"[a-z\s]"), Is.EqualTo("hello there- world"));
         }
     }
 }

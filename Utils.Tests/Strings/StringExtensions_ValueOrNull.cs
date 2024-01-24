@@ -12,13 +12,13 @@ namespace Utils.Tests.Strings
         [Test]
         public void ValueOrNull_returns_value_for_non_empty_string()
         {
-            Assert.AreEqual("Test", "Test".ValueOrNull());
+            Assert.That("Test".ValueOrNull(), Is.EqualTo("Test"));
         }
 
         [Test]
         public void ValueOrNull_returns_value_for_whitespace_string_if_flag_is_enabled()
         {
-            Assert.AreEqual("   ", "   ".ValueOrNull(allowWhitespace: true));
+            Assert.That("   ".ValueOrNull(allowWhitespace: true), Is.EqualTo("   "));
         }
 
         [Test]

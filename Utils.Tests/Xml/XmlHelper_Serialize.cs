@@ -87,7 +87,7 @@ namespace Utils.Tests.Xml
         {
             var xml = XmlHelper.Serialize(GetObj(), indent: false);
             var lines = xml.Split('\n');
-            Assert.AreEqual(lines.Length, 1);
+            Assert.That(1, Is.EqualTo(lines.Length));
         }
 
         #endregion
@@ -99,7 +99,7 @@ namespace Utils.Tests.Xml
         {
             var xml = XmlHelper.Serialize(GetObj());
             var elem = XElement.Parse(xml);
-            Assert.AreEqual(elem.Name.LocalName, nameof(SampleObject));
+            Assert.That(nameof(SampleObject), Is.EqualTo(elem.Name.LocalName));
         }
 
         [Test]
@@ -108,7 +108,7 @@ namespace Utils.Tests.Xml
             var name = "FooBar";
             var xml = XmlHelper.Serialize(GetObj(), rootName: name);
             var elem = XElement.Parse(xml);
-            Assert.AreEqual(elem.Name.LocalName, name);
+            Assert.That(name, Is.EqualTo(elem.Name.LocalName));
         }
 
         #endregion

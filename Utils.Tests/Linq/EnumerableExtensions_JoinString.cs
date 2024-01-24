@@ -12,25 +12,25 @@ namespace Utils.Tests.Linq
         [Test]
         public void JoinString_joins_with_separator()
         {
-            Assert.AreEqual("A&B&C", new [] { "A", "B", "C" }.JoinString("&"));
+            Assert.That(new [] { "A", "B", "C" }.JoinString("&"), Is.EqualTo("A&B&C"));
         }
 
         [Test]
         public void JoinString_joins_with_empty_separator()
         {
-            Assert.AreEqual("ABC", new [] { "A", "B", "C" }.JoinString(""));
+            Assert.That(new [] { "A", "B", "C" }.JoinString(""), Is.EqualTo("ABC"));
         }
 
         [Test]
         public void JoinString_joins_with_null_separator()
         {
-            Assert.AreEqual("ABC", new [] { "A", "B", "C" }.JoinString(null));
+            Assert.That(new [] { "A", "B", "C" }.JoinString(null), Is.EqualTo("ABC"));
         }
 
         [Test]
         public void JoinString_returns_empty_string_on_empty_array()
         {
-            Assert.AreEqual("", new string[0].JoinString(""));
+            Assert.That(new string[0].JoinString(""), Is.EqualTo(""));
         }
     }
 }

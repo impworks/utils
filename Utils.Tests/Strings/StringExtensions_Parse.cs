@@ -92,7 +92,7 @@ namespace Utils.Tests.Strings
         [Test]
         public void Parse_accepts_parse_function()
         {
-            Assert.AreEqual(123, "1-2-3".Parse(x => int.Parse(x.Replace("-", ""))));
+            Assert.That("1-2-3".Parse(x => int.Parse(x.Replace("-", ""))), Is.EqualTo(123));
         }
 
         [Test]
@@ -110,62 +110,62 @@ namespace Utils.Tests.Strings
         [Test]
         public void TryParse_accepts_parse_function()
         {
-            Assert.AreEqual(123, "1-2-3".TryParse(x => int.Parse(x.Replace("-", ""))));
+            Assert.That("1-2-3".TryParse(x => int.Parse(x.Replace("-", ""))), Is.EqualTo(123));
         }
 
         [Test]
         public void TryParse_returns_default_on_incorrect_value()
         {
-            Assert.AreEqual(0, "1-2-3".TryParse<int>());
-            Assert.AreEqual(null, "1-2-3".TryParse<int?>());
+            Assert.That("1-2-3".TryParse<int>(), Is.EqualTo(0));
+            Assert.That("1-2-3".TryParse<int?>(), Is.Null);
         }
 
         [Test]
         public void TryParse_accepts_null()
         {
-            Assert.AreEqual(0, (null as string).TryParse<int>());
-            Assert.AreEqual(null, (null as string).TryParse<int?>());
+            Assert.That((null as string).TryParse<int>(), Is.EqualTo(0));
+            Assert.That((null as string).TryParse<int?>(), Is.Null);
         }
 
         [Test]
         public void TryParseList_returns_list()
         {
-            Assert.AreEqual(new [] { 1, 2, 3 }, "1,2,3".TryParseList<int>());
+            Assert.That("1,2,3".TryParseList<int>(), Is.EqualTo(new [] { 1, 2, 3 }));
         }
         
         [Test]
         public void TryParseList_skips_failed_entries()
         {
-            Assert.AreEqual(new[] { 1, 3 }, "1,test,3".TryParseList<int>());
+            Assert.That("1,test,3".TryParseList<int>(), Is.EqualTo(new[] { 1, 3 }));
         }
 
         [Test]
         public void TryParseList_returns_empty_list_if_no_item_succeeded()
         {
-            Assert.AreEqual(new int[0], "a,b,c".TryParseList<int>());
+            Assert.That("a,b,c".TryParseList<int>(), Is.EqualTo(new int[0]));
         }
 
         [Test]
         public void TryParseList_uses_separator()
         {
-            Assert.AreEqual(new[] { 1, 2, 3 }, "1-2-3".TryParseList<int>(separator: "-"));
+            Assert.That("1-2-3".TryParseList<int>(separator: "-"), Is.EqualTo(new[] { 1, 2, 3 }));
         }
 
         [Test]
         public void TryParseList_uses_parseFunc()
         {
-            Assert.AreEqual(new[] { 1, 2, 3 }, "@1,@2,@3".TryParseList<int>(parseFunc: str => int.Parse(str.TrimStart('@'))));
+            Assert.That("@1,@2,@3".TryParseList<int>(parseFunc: str => int.Parse(str.TrimStart('@'))), Is.EqualTo(new[] { 1, 2, 3 }));
         }
 
         [Test]
         public void TryParseList_accepts_null()
         {
-            Assert.AreEqual(new int[0], (null as string).TryParseList<int>());
+            Assert.That((null as string).TryParseList<int>(), Is.EqualTo(new int[0]));
         }
 
         void Check<T>((string str, T obj) value)
         {
-            Assert.AreEqual(value.obj, value.str.Parse<T>());
+            Assert.That(value.str.Parse<T>(), Is.EqualTo(value.obj));
         }
     }
 }

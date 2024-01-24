@@ -19,7 +19,7 @@ namespace Utils.Tests.Dictionary
                 ["a"] = "b"
             };
 
-            Assert.AreEqual("world", dict.TryGetValue("hello"));
+            Assert.That(dict.TryGetValue("hello"), Is.EqualTo("world"));
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace Utils.Tests.Dictionary
                 ["a"] = 2
             };
 
-            Assert.AreEqual(0, dict.TryGetValue("bla"));
+            Assert.That(dict.TryGetValue("bla"), Is.EqualTo(0));
         }
 
         [Test]
@@ -55,7 +55,7 @@ namespace Utils.Tests.Dictionary
                 [2] = 37
             };
 
-            Assert.AreEqual(37, dict.TryGetValue(3, 2, 1));
+            Assert.That(dict.TryGetValue(3, 2, 1), Is.EqualTo(37));
         }
 
         [Test]
@@ -67,7 +67,7 @@ namespace Utils.Tests.Dictionary
                 [2] = 37
             };
 
-            Assert.AreEqual(0, dict.TryGetValue(4, 5));
+            Assert.That(dict.TryGetValue(4, 5), Is.EqualTo(0));
         }
 
         [Test]
@@ -79,7 +79,7 @@ namespace Utils.Tests.Dictionary
                 [2] = "bar"
             };
 
-            Assert.AreEqual(null, dict.TryGetValue(4, 5));
+            Assert.That(dict.TryGetValue(4, 5), Is.Null);
         }
 
         [Test]
@@ -91,7 +91,7 @@ namespace Utils.Tests.Dictionary
                 ["b"] = "bar"
             };
 
-            Assert.AreEqual(null, dict.TryGetValue(null as string));
+            Assert.That(dict.TryGetValue(null as string), Is.Null);
         }
 
         [Test]
@@ -103,7 +103,7 @@ namespace Utils.Tests.Dictionary
                 ["b"] = "bar"
             };
 
-            Assert.AreEqual(null, dict.TryGetValue(null as string[]));
+            Assert.That(dict.TryGetValue(null as string[]), Is.Null);
         }
 
         [Test]
@@ -115,7 +115,7 @@ namespace Utils.Tests.Dictionary
                 ["b"] = "bar"
             };
 
-            Assert.AreEqual("foo", dict.TryGetValue(null, null, "a"));
+            Assert.That(dict.TryGetValue(null, null, "a"), Is.EqualTo("foo"));
         }
     }
 }

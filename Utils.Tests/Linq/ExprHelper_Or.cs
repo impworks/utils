@@ -30,7 +30,7 @@ namespace Utils.Tests.Linq
                 x => x.Field != null && x.Field.Length > 2
             ).Compile();
 
-            Assert.AreEqual(arg.result, pred(arg.obj));
+            Assert.That(pred(arg.obj), Is.EqualTo(arg.result));
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace Utils.Tests.Linq
                 x => x.Values.Any(y => lengths.Contains(y.Length))
             ).Compile();
 
-            Assert.AreEqual("1,3,4", objs.Where(pred).Select(x => x.Key).JoinString(","));
+            Assert.That(objs.Where(pred).Select(x => x.Key).JoinString(","), Is.EqualTo("1,3,4"));
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Utils.Tests.Url
                 A = 1,
                 B = 2
             };
-            Assert.AreEqual("A=1&B=2", UrlHelper.GetQuery(dict));
+            Assert.That(UrlHelper.GetQuery(dict), Is.EqualTo("A=1&B=2"));
         }
 
         [Test]
@@ -31,7 +31,7 @@ namespace Utils.Tests.Url
                 ["A"] = 1,
                 ["B"] = 2
             };
-            Assert.AreEqual("A=1&B=2", UrlHelper.GetQuery(dict));
+            Assert.That(UrlHelper.GetQuery(dict), Is.EqualTo("A=1&B=2"));
         }
 
         [Test]
@@ -42,7 +42,7 @@ namespace Utils.Tests.Url
                 ["A"] = 1,
                 ["B"] = 2
             };
-            Assert.AreEqual("A=1&B=2", UrlHelper.GetQuery(dict));
+            Assert.That(UrlHelper.GetQuery(dict), Is.EqualTo("A=1&B=2"));
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace Utils.Tests.Url
             {
                 A = new [] { 1, 2, 3 }
             };
-            Assert.AreEqual("A=1&A=2&A=3", UrlHelper.GetQuery(dict));
+            Assert.That(UrlHelper.GetQuery(dict), Is.EqualTo("A=1&A=2&A=3"));
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace Utils.Tests.Url
                 A = "hello",
                 B = "world"
             };
-            Assert.AreEqual("A=hello&B=world", UrlHelper.GetQuery(dict));
+            Assert.That(UrlHelper.GetQuery(dict), Is.EqualTo("A=hello&B=world"));
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace Utils.Tests.Url
             {
                 ["A B"] = 1
             };
-            Assert.AreEqual("A%20B=1", UrlHelper.GetQuery(dict));
+            Assert.That(UrlHelper.GetQuery(dict), Is.EqualTo("A%20B=1"));
         }
 
         [Test]
@@ -83,7 +83,7 @@ namespace Utils.Tests.Url
             {
                 ["A"] = "Hello/world"
             };
-            Assert.AreEqual("A=Hello%2Fworld", UrlHelper.GetQuery(dict));
+            Assert.That(UrlHelper.GetQuery(dict), Is.EqualTo("A=Hello%2Fworld"));
         }
         
         [Test]

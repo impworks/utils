@@ -21,7 +21,7 @@ namespace Utils.Tests.Format
                 [SampleEnum.World] = "Other value",
             };
 
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace Utils.Tests.Format
                 [SampleEnum2.World] = "World",
             };
 
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
@@ -49,7 +49,7 @@ namespace Utils.Tests.Format
                 [SampleEnum.World] = "Other value",
             };
 
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
@@ -63,19 +63,19 @@ namespace Utils.Tests.Format
                 [SampleEnum2.World] = "World",
             };
 
-            Assert.AreEqual(expected, result);
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
         public void GetEnumDescription_returns_the_value()
         {
-            Assert.AreEqual("First value", SampleEnum.Hello.GetEnumDescription());
+            Assert.That(SampleEnum.Hello.GetEnumDescription(), Is.EqualTo("First value"));
         }
 
         [Test]
         public void GetEnumValues_returns_the_array()
         {
-            Assert.AreEqual(new[] {SampleEnum.Hello, SampleEnum.World}, EnumHelper.GetEnumValues<SampleEnum>());
+            Assert.That(EnumHelper.GetEnumValues<SampleEnum>(), Is.EqualTo(new[] {SampleEnum.Hello, SampleEnum.World}));
         }
 
         [Test]

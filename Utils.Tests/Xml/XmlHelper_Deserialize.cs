@@ -22,7 +22,7 @@ namespace Utils.Tests.Xml
             var obj = GetObj();
             var xml = XmlHelper.Serialize(obj);
             var newObj = XmlHelper.Deserialize<SampleObject>(xml);
-            Assert.AreEqual(JsonConvert.SerializeObject(obj), JsonConvert.SerializeObject(newObj));
+            Assert.That(JsonConvert.SerializeObject(newObj), Is.EqualTo(JsonConvert.SerializeObject(obj)));
         }
 
         [Test]
@@ -31,7 +31,7 @@ namespace Utils.Tests.Xml
             var obj = GetObj();
             var xml = XmlHelper.Serialize(obj, clean: false);
             var newObj = XmlHelper.Deserialize<SampleObject>(xml);
-            Assert.AreEqual(JsonConvert.SerializeObject(obj), JsonConvert.SerializeObject(newObj));
+            Assert.That(JsonConvert.SerializeObject(newObj), Is.EqualTo(JsonConvert.SerializeObject(obj)));
         }
 
         [Test]
@@ -41,7 +41,7 @@ namespace Utils.Tests.Xml
             var name = "FooBar";
             var xml = XmlHelper.Serialize(obj, rootName: name);
             var newObj = XmlHelper.Deserialize<SampleObject>(xml, rootName: name);
-            Assert.AreEqual(JsonConvert.SerializeObject(obj), JsonConvert.SerializeObject(newObj));
+            Assert.That(JsonConvert.SerializeObject(newObj), Is.EqualTo(JsonConvert.SerializeObject(obj)));
         }
     }
 }

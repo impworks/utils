@@ -12,7 +12,7 @@ namespace Utils.Tests.Strings
             var src = "Hello world";
             var encoded = StringHelper.Base64Encode(src);
 
-            Assert.AreEqual("SGVsbG8gd29ybGQ=", encoded);
+            Assert.That(encoded, Is.EqualTo("SGVsbG8gd29ybGQ="));
         }
 
         [Test]
@@ -21,7 +21,7 @@ namespace Utils.Tests.Strings
             var src = "SGVsbG8gd29ybGQ=";
             var encoded = StringHelper.Base64Decode(src);
 
-            Assert.AreEqual("Hello world", encoded);
+            Assert.That(encoded, Is.EqualTo("Hello world"));
         }
     }
 }

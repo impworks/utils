@@ -16,7 +16,7 @@ namespace Utils.Tests.Linq
             var list = new List<int> {1, 2, 3} as ICollection<int>;
             list.AddRange(new [] { 4, 5 });
 
-            Assert.AreEqual(new [] { 1, 2, 3, 4, 5 }, list);
+            Assert.That(list, Is.EqualTo(new [] { 1, 2, 3, 4, 5 }));
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Utils.Tests.Linq
 
             var result = objs.OrderBy(x => x.Value, false).Select(x => x.Str);
 
-            Assert.AreEqual(new [] { "world", "abra", "hello" }, result);
+            Assert.That(result, Is.EqualTo(new [] { "world", "abra", "hello" }));
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace Utils.Tests.Linq
 
             var result = objs.OrderBy(x => x.Value, true).Select(x => x.Str);
 
-            Assert.AreEqual(new [] { "hello", "abra", "world" }, result);
+            Assert.That(result, Is.EqualTo(new [] { "hello", "abra", "world" }));
         }
 
         [Test]
@@ -47,7 +47,7 @@ namespace Utils.Tests.Linq
                              .ThenBy(x => x.Value, false)
                              .Select(x => x.Str);
 
-            Assert.AreEqual(new [] { "abra", "world", "hello" }, result);
+            Assert.That(result, Is.EqualTo(new [] { "abra", "world", "hello" }));
         }
 
         [Test]
@@ -59,7 +59,7 @@ namespace Utils.Tests.Linq
                              .ThenBy(x => x.Value, true)
                              .Select(x => x.Str);
 
-            Assert.AreEqual(new [] { "abra", "hello", "world" }, result);
+            Assert.That(result, Is.EqualTo(new [] { "abra", "hello", "world" }));
         }
     }
 }

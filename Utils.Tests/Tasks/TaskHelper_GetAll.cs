@@ -19,8 +19,8 @@ namespace Utils.Tests.Tasks
                 Task.FromResult(2)
             );
 
-            Assert.AreEqual(1, i1);
-            Assert.AreEqual(2, i2);
+            Assert.That(i1, Is.EqualTo(1));
+            Assert.That(i2, Is.EqualTo(2));
         }
 
         [Test]
@@ -32,9 +32,9 @@ namespace Utils.Tests.Tasks
                 Task.FromResult(3)
             );
 
-            Assert.AreEqual(1, i1);
-            Assert.AreEqual(2, i2);
-            Assert.AreEqual(3, i3);
+            Assert.That(i1, Is.EqualTo(1));
+            Assert.That(i2, Is.EqualTo(2));
+            Assert.That(i3, Is.EqualTo(3));
         }
 
         [Test]
@@ -47,10 +47,10 @@ namespace Utils.Tests.Tasks
                 Task.FromResult(4)
             );
 
-            Assert.AreEqual(1, i1);
-            Assert.AreEqual(2, i2);
-            Assert.AreEqual(3, i3);
-            Assert.AreEqual(4, i4);
+            Assert.That(i1, Is.EqualTo(1));
+            Assert.That(i2, Is.EqualTo(2));
+            Assert.That(i3, Is.EqualTo(3));
+            Assert.That(i4, Is.EqualTo(4));
         }
 
         [Test]
@@ -64,11 +64,11 @@ namespace Utils.Tests.Tasks
                 Task.FromResult(5)
             );
 
-            Assert.AreEqual(1, i1);
-            Assert.AreEqual(2, i2);
-            Assert.AreEqual(3, i3);
-            Assert.AreEqual(4, i4);
-            Assert.AreEqual(5, i5);
+            Assert.That(i1, Is.EqualTo(1));
+            Assert.That(i2, Is.EqualTo(2));
+            Assert.That(i3, Is.EqualTo(3));
+            Assert.That(i4, Is.EqualTo(4));
+            Assert.That(i5, Is.EqualTo(5));
         }
 
         [Test]
@@ -83,12 +83,12 @@ namespace Utils.Tests.Tasks
                 Task.FromResult(6)
             );
 
-            Assert.AreEqual(1, i1);
-            Assert.AreEqual(2, i2);
-            Assert.AreEqual(3, i3);
-            Assert.AreEqual(4, i4);
-            Assert.AreEqual(5, i5);
-            Assert.AreEqual(6, i6);
+            Assert.That(i1, Is.EqualTo(1));
+            Assert.That(i2, Is.EqualTo(2));
+            Assert.That(i3, Is.EqualTo(3));
+            Assert.That(i4, Is.EqualTo(4));
+            Assert.That(i5, Is.EqualTo(5));
+            Assert.That(i6, Is.EqualTo(6));
         }
 
         [Test]
@@ -104,13 +104,13 @@ namespace Utils.Tests.Tasks
                 Task.FromResult(7)
             );
 
-            Assert.AreEqual(1, i1);
-            Assert.AreEqual(2, i2);
-            Assert.AreEqual(3, i3);
-            Assert.AreEqual(4, i4);
-            Assert.AreEqual(5, i5);
-            Assert.AreEqual(6, i6);
-            Assert.AreEqual(7, i7);
+            Assert.That(i1, Is.EqualTo(1));
+            Assert.That(i2, Is.EqualTo(2));
+            Assert.That(i3, Is.EqualTo(3));
+            Assert.That(i4, Is.EqualTo(4));
+            Assert.That(i5, Is.EqualTo(5));
+            Assert.That(i6, Is.EqualTo(6));
+            Assert.That(i7, Is.EqualTo(7));
         }
 
         [Test]

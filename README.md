@@ -72,6 +72,11 @@ The package provides the following methods, split into logical parts.
       new [] { treeRoot }.SelectRecursively(x => x.Children) // selects all children in a flat list
       new [] { treeRoot }.ApplyRecursively(x => x.Children, x => x.Value = 1) // sets Value = 1 on all children
       ```
+      Destructuring sequences:
+      ```csharp
+      var (a, b) = new [] { 1, 2, 3 }.First2(); // a = 1, b = 2
+      var (c, d, e, f) = new [] { "foo", "bar" }.First4OrDefault(); // e, f = null
+      ```
 
   * Expressions
 

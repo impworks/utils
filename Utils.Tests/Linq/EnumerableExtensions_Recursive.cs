@@ -35,7 +35,7 @@ namespace Utils.Tests.Linq
         }
 
         [Test]
-        public void SelectRecursive_selects_all_tree_nodes_in_depth_firt_order()
+        public void SelectRecursive_selects_all_tree_nodes_in_depth_first_order()
         {
             var tree = GetTree();
             var result = tree.SelectRecursively(x => x.Children).Select(x => x.Value);
@@ -44,7 +44,7 @@ namespace Utils.Tests.Linq
         }
         
         [Test]
-        public void ApplyRecursive_visits_all_tree_nodes_in_depth_firt_order()
+        public void ApplyRecursive_visits_all_tree_nodes_in_depth_first_order()
         {
             var tree = GetTree();
             var result = new List<int>();

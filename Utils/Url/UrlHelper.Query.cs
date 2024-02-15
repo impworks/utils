@@ -72,9 +72,9 @@ public static partial class UrlHelper
             if (value == null)
                 continue;
 
-            if (IsEnumerable(value))
+            if (value is IEnumerable enumValue and not string)
             {
-                foreach(var elem in (IEnumerable) value)
+                foreach(var elem in enumValue)
                     yield return new KeyValuePair<string, object>(prop.Name, elem);
             }
             else
@@ -97,18 +97,6 @@ public static partial class UrlHelper
             : value.ToString();
 
         return Uri.EscapeDataString(propName) + "=" + Uri.EscapeDataString(strValue);
-    }
-
-    /// <summary>
-    /// Checks if the object must be rendered as a collection of values.
-    /// </summary>
-    private static bool IsEnumerable(object obj)
-    {
-        if (obj is string)
-            return false;
-
-        var interfaces = obj.GetType().GetInterfaces();
-        return interfaces.Contains(typeof(IEnumerable));
     }
 
     #endregion

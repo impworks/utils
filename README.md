@@ -108,12 +108,20 @@ The package provides the following methods, split into logical parts.
 
   * Exceptions
 
-    Fluent exception ignoring (with async versions too):
-    ```csharp
-    Try.Do(() => SomeStuff()); // does not throw
-    Try.Get(() => GetAnInt()) // returns 0 on exception
-    Try.Get(() => GetAnInt(), 123) // returns 123 on exception
-    ```
+      Fluent exception ignoring (with async versions too):
+      ```csharp
+      Try.Do(() => SomeStuff()); // does not throw
+      Try.Get(() => GetAnInt()) // returns 0 on exception
+      Try.Get(() => GetAnInt(), 123) // returns 123 on exception
+      ```
+
+  * Comparisons
+
+      Min and Max for all IComparable's:
+      ```csharp
+      CompareHelper.Min("b", "a", "c") // "a"
+      CompareHelper.Max(DateTime.Parse("2024-01-01"), DateTime.Parse("2023-02-01")) // 2024-01-01
+      ```
 
   * Random
 

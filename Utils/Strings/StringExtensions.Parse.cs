@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Impworks.Utils.Exceptions;
 
 namespace Impworks.Utils.Strings;
 
@@ -29,18 +30,7 @@ public static partial class StringExtensions
     public static T TryParse<T>(this string str, Func<string, T> parseFunc = null)
     {
         var func = parseFunc ?? StringHelper.GetParseFunction<T>();
-
-        try
-        {
-            if (str != null)
-                return func(str);
-        }
-        catch
-        {
-            // do nothing
-        }
-
-        return default;
+        return Try.Get(() => str != null ? func(str) : default);
     }
 
     /// <summary>

@@ -106,6 +106,15 @@ The package provides the following methods, split into logical parts.
       EnumHelper.IsDefined<Language>("csharp") // true
       ```
 
+  * Exceptions
+
+    Fluent exception ignoring (with async versions too):
+    ```csharp
+    Try.Do(() => SomeStuff()); // does not throw
+    Try.Get(() => GetAnInt()) // returns 0 on exception
+    Try.Get(() => GetAnInt(), 123) // returns 123 on exception
+    ```
+
   * Random
 
       Random values:

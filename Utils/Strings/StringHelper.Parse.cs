@@ -68,6 +68,7 @@ public static partial class StringHelper
 
         [typeof(string)] = (Func<string, string>)(x => x),
         [typeof(XElement)] = (Func<string, XElement>)(XElement.Parse),
+        [typeof(XDocument)] = (Func<string, XDocument>)(XDocument.Parse),
         [typeof(Uri)] = (Func<string, Uri>)(x => new Uri(x, UriKind.RelativeOrAbsolute)),
 
 #if NET6_0_OR_GREATER

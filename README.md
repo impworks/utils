@@ -169,6 +169,12 @@ The package provides the following methods, split into logical parts.
           GetStringAsync()
       );
       ```
+      Async ID-based locker:
+      ```csharp
+      var locker = new Locker<int>();
+      using(await locker.AcquireAsync(123))
+          // do stuff
+      ```
 
   * XML
 

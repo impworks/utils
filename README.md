@@ -130,11 +130,17 @@ The package provides the following methods, split into logical parts.
       RandomHelper.Int(1, 100) // 42
       RandomHelper.Float() // 0.1337
       RandomHelper.Sign() // -1 or 1
+      RandomHelper.DoubleNormal() // normal distribution around 0.5 limited to 0..1
       ```
       Random picks:
       ```csharp
       RandomHelper.Pick(1, 2, 3, 4, 5) // 4
-      RandomHelper.PickWeighted(new [] { "a", "test", "blablabla" }, x => x.Length) // "blablabla"
+      RandomHelper.PickWeighted(new [] { "a", "test", "blablabla" }, x => x.Length) // likely "blablabla"
+      new [] { 1, 2, 3, 4, 5 }.PickRandom() // optionally accepts a weight function too
+      ```
+      Shuffle:
+      ```
+      new [] { 1, 2, 3, 4, 5 }.Shuffle() // something like 4, 2, 1, 5, 3
       ```
 
   * Dictionary

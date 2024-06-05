@@ -138,4 +138,16 @@ public static class RandomHelper
 
         return default;
     }
+
+    /// <summary>
+    /// Returns the value in 0..1 range with normal distribution around 0.5.
+    /// </summary>
+    public static double DoubleNormal()
+    {
+        var u1 = 1.0 - Double();
+        var u2 = 1.0 - Double();
+        var normal = Math.Sqrt(-2.0 * Math.Log(u1)) * Math.Sin(2.0 * Math.PI * u2);
+        var scaled = 0.5 + normal / 8.0;
+        return Math.Min(1, Math.Max(scaled, 0));
+    }
 }

@@ -213,7 +213,28 @@ namespace Utils.Tests.Random
                                   .GroupBy(x => x)
                                   .ToDictionary(x => x.Key, x => x.Count());
 
-            Assert.Greater(picks[100], picks[5]);
+            Assert.That(picks[100], Is.GreaterThan(picks[5]));
+        }
+
+        [Test]
+        public void DoubleNormal_returns_values_in_range()
+        {
+            RandomTestHelper.Always(() => RandomHelper.DoubleNormal() is >= 0 and <= 1);
+        }
+
+        [Test]
+        public void DoubleNormal_returns_values_around_one_half()
+        {
+            var count = 10000;
+            RandomTestHelper.Always(() =>
+            {
+                var result = 0.0;
+                for (var i = 0; i <= count; i++)
+                    result += RandomHelper.DoubleNormal();
+
+                var avg = result / count;
+                return avg is >= 0.495 and <= 0.505;
+            });
         }
     }
 }
